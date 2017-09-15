@@ -6,11 +6,13 @@ print (" We live in world of dreams, imagination, challenges, and fear. We like 
        "===========================================================================\n")
 def main():
     score=0
-    locat1=" Parking lot"
-    locat2="Doom, no access"
-    locat3= "Dinning Hall, no access"
-    locat4= " Library, I want to see my advisor"
-    locat5= " donneley, where can I get my ID"
+    locat1=" Arrived on compus. You are in parking lot where you can see all beauty of the compus. You start to feel very impressive anc curious. There many buildings around you but you do not where to go."
+    locat2=" The path leads you to your doom. Ahead in that path, you can see a toller build. As you walk toward the building there other two buidings. all of them are closed."
+    locat3= " You are standing next to the toller building. Outside door is not locked."
+    locat4= " No one is around you. There is only empy desk in front of you and closed door. Trying to open door. No access!!" 
+    locat5= " you are downstairs in  toller building. There people eating and you start to feel hungry. No access!!!"
+    locat6= " your talking to your advisor. Ask her what you want?"
+    locat7= " your standing infront of the comera. You card is almost done." 
     
     print( " Hidden Box Start here\n"
            "Initial score: ", score, "\n")
@@ -22,12 +24,12 @@ def main():
 
     print("location:", locat2, "\n")
     score=score+5
-    print("score:", score,"\n")
+    print(" your score:", score,"\n")
     Next= input(" Press Enter to contue.")
     
     print("location:",locat3,"\n")
     score=score+5
-    print("score:", score,"\n")
+    print("your score:", score,"\n")
     Next=input( "Press Enter to contue.")
     
     print("location:",locat4,"\n")
@@ -36,6 +38,11 @@ def main():
     Next=input( "Press Enter to contue.")
     
     print("location:",locat5,"\n")
+    score=score+5
+    print(" your score:", score,"\n")
+    Next=input( "Press Enter to contue.")
+    
+    print("location:",locat6,"\n")
     score=score+5
     print("score:", score,"\n")
     Next=input( "Press Enter to contue.")
