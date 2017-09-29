@@ -72,7 +72,84 @@ def conclude(score, name):
     print('Good JOb '+name+', you have finished the game')
     print("Your Total score is:" , score,"\n")
     print(copyRight)
+
+def main():
     
+    forest, prisonHouse, lakeBank, island, city, museum = locations()
+    ask_help = "You can only move north, east, south or west from your current location \
+            Enter the directions to move towards."
+    name = intro()
+    curLocation = forest
+    visited = [curLocation]
+    print(curLocation)
+    score = 0
+    while True:
+        print('\n')
+        print(name, 'Your current score is:', score )
+        move = input("Enter a direction: ").strip().lower()
+        print('\n')
+        if move in ['north', 'east', 'south', 'west']:
+            if curLocation == forest:
+                if move in ['south', 'west', 'north']:
+                    print("You are still in the forest.")
+                elif move == 'east':
+                    print('You are captured by wild creatures and put in Prison.')
+                    curLocation = prisonHouse
+                    if curLocation not in visited:
+                        visited.append(curLocation)
+                        score+=5
+                    print(curLocation)
+                    
+            elif curLocation == prisonHouse:
+                if move in ['east', 'south', 'west']:
+                    print('You bump into the prison wall.')
+                if move == 'west':
+                  print("Going back into the forest")
+                  curLocation = forest
+                  print(curLocation)
+                if move == 'north':
+                    print("you have arrive at a shore of a sea")
+                    curLocation = lakeBank;
+                if curLocation not in visited:
+                    visited.append(curLocation)
+                    score+=5
+                    print(curLocation)
+            elif curLocation == lakeBank:
+                if move in ['east','west']:
+                    print('you are still on the lake bank')
+                elif move == 'south':
+                    print('Going back into the forest')
+                    curLocation = forest
+                    print(curLocation)
+                elif move == 'north':
+                    print("you are now at an island")
+                    curLocation = island 
+                    if curLocation not in visited:
+                        visited.append(curLocation)
+                        score+=5
+                    print(curLocation)
+            elif curLocation == island:
+                if move in ['east', 'west']:
+                    print("you are still on the middle of the sea")
+                elif move == 'south':
+                    print("you are going back into the lake bank")
+                    curLocation = lakeBank
+                    print(curLocation)
+                elif move == 'north':
+                    print('you are now in the mystical city')
+                    curLocation = city
+                    if curLocation not in visited:
+                        visited.append(curLocation)
+                        score+=5
+                    print(city)
+            elif curLocation == city:
+                if move in ['north', 'west', 'south']:
+                    print("You are wandering around the city")
+                elif move == 'east':
+                    score+=5
+                    curLocation = museum
+                    print(curLocation)
+                    break
 
 
 
