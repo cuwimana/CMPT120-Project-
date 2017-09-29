@@ -76,8 +76,7 @@ def conclude(score, name):
 def main():
     
     forest, prisonHouse, lakeBank, island, city, museum = locations()
-    ask_help = "You can only move north, east, south or west from your current location \
-            Enter the directions to move towards."
+    ask_help = "You can only move north, east, south or west from your current location. Enter the directions to move towards."
     name = intro()
     curLocation = forest
     visited = [curLocation]
@@ -85,7 +84,8 @@ def main():
     score = 0
     while True:
         print('\n')
-        print(name, 'Your current score is:', score )
+        print(name, 'your current score is:', score )
+        print('\n')
         move = input("Enter a direction: ").strip().lower()
         print('\n')
         if move in ['north', 'east', 'south', 'west']:
@@ -93,7 +93,7 @@ def main():
                 if move in ['south', 'west', 'north']:
                     print("You are still in the forest.")
                 elif move == 'east':
-                    print('You are captured by wild creatures and put in Prison.')
+                    print('You are captured by wild creatures and put in Prison.\n')
                     curLocation = prisonHouse
                     if curLocation not in visited:
                         visited.append(curLocation)
@@ -104,16 +104,16 @@ def main():
                 if move in ['east', 'south', 'west']:
                     print('You bump into the prison wall.')
                 if move == 'west':
-                  print("Going back into the forest")
+                  print("Going back into the forest!\n")
                   curLocation = forest
                   print(curLocation)
                 if move == 'north':
-                    print("you have arrive at a shore of a sea")
+                    print("you have arrive at a shore of a sea!\n")
                     curLocation = lakeBank;
-                if curLocation not in visited:
-                    visited.append(curLocation)
-                    score+=5
-                    print(curLocation)
+                    if curLocation not in visited:
+                        visited.append(curLocation)
+                        score+=5
+                        print(curLocation)
             elif curLocation == lakeBank:
                 if move in ['east','west']:
                     print('you are still on the lake bank')
@@ -161,6 +161,7 @@ def main():
             print("Invalid input .\n")
             
     conclude(score, name)
+
     
 main()
                     
