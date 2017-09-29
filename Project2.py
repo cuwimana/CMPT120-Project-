@@ -137,19 +137,34 @@ def main():
                     print(curLocation)
                 elif move == 'north':
                     print('you are now in the mystical city')
-                    curLocation = city
-                    if curLocation not in visited:
-                        visited.append(curLocation)
+                    current_location = city
+                    if current_location not in visited:
+                        visited.append(current_location)
                         score+=5
                     print(city)
-            elif curLocation == city:
+            elif current_location == city:
                 if move in ['north', 'west', 'south']:
                     print("You are wandering around the city")
                 elif move == 'east':
                     score+=5
-                    curLocation = museum
-                    print(curLocation)
+                    current_location = museum
+                    print(current_location)
                     break
+
+        elif move == 'help':
+            print(ask_help)
+        elif move == 'quit':
+            print("Game exited.")
+            print("Score: ",score)
+            return
+        else:
+            print("Invalid input .\n")
+            
+    conclude(score, name)
+    
+main()
+                    
+
 
 
 
