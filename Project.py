@@ -77,10 +77,9 @@ def locations():
     island = 3
     city = 4
     museum = 5
-    cave = 6
-    tunnel = 7
-    return descriptions, forest, prisonHouse, lakeBank, island, city, museum, cave, tunnel
-    
+    tunnel = 6
+    cave = 7
+    return descriptions, forest, prisonHouse, lakeBank, island, city, museum, tunnel, cave  
 def conclude(score, name):
    
     end = "\nOoops! All museum doors are locked themselves. Good bye real world, I am stuck in the Museum!"
@@ -89,9 +88,9 @@ def conclude(score, name):
     print('Good JOb '+name+', you have finished the game')
     print("Your Total score is:" , score,"\n")
     print(copyRight)
-    
+
 def main():
-    descriptions, forest, prisonHouse, lakeBank, island, city, museum,cave, tunnel= locations()
+    descriptions, forest, prisonHouse, lakeBank, island, city, museum, tunnel, cave= locations()
     ask_help = "You can only move north, east, south or west from your current location. Enter the directions to move towards."
     name = intro()
     current_location = forest
@@ -105,72 +104,110 @@ def main():
         print("\n")
         if move in ["north", "east", "south", "west"]:
             if current_location == forest:
-                if move in ["south", "west", "north"]:
+                if move in ["south", "west"]:
                     print("You are still in the forest.")
                 elif move == "east":
                     print("You are captured by wild creatures and put in Prison!\n")
                     current_location = prisonHouse
-                    if current_location not in visited:
-                        visited.append(current_location)
-                        score+=5
-                    print(descriptions[current_location])
+                elif move == "north":
+                    print("You are in the way lead you to the cave!\n")
+                    current_location = cave
+                if current_location not in visited:
+                    visited.append(current_location)
+                    score+=5
+                print(descriptions[current_location])
+            elif current_location == cave:
+                if move == "north":
+                    print("you are still in the cave!\n")
+                if move == "south":
+                    print("return in the forest!\n")
+                    current_location = forest
+                if move == "west":
+                    print(" you are walking under the small tunnel")
+                    current_location = tunnel 
+                if move == "east":
+                    print("You are walking to ward the lake bank!\n")
+                    current_location = lakeBank
+                if current_location not in visited:
+                    visited.append(current_location)
+                    score+=5
+                print(descriptions[current_location]) 
+            elif current_location == tunnel:
+                if move in ["south", "west"]:
+                    print(" you bump into the tunnel wall")
+                elif move == "east":
+                    print(" You going back in the cave!\n")
+                    current_location = cave
+                elif move == "north":
+                    current_location = museum
+                if current_location not in visited:
+                    visited.append(current_location)
+                    score+=5
+                print(descriptions[current_location])
             elif current_location == prisonHouse:
-                if move in ["east", "south", "west"]:
+                if move in ["east", "south"]:
                     print("You bump into the prison wall.\n")
                 if move == "west":
                     print("Going back into the forest!\n")
                     current_location = forest
-                    print(descriptions[current_location])
+                    print (descriptions[current_location])
                 if move == "north":
                     print("you have arrive at a shore of a sea!\n")
                     current_location = lakeBank
                 if current_location not in visited:
                     visited.append(current_location)
                     score+=5
-                    print(descriptions[current_location])
+                print(descriptions[current_location])
+                    
             elif current_location == lakeBank:
-                if move in ["east","west"]:
+                if move == "east":
                     print("you are still on the lake bank!\n")
+                elif move == "west":
+                    print(" The is a beautiful curve in front of you!")
+                    current_location = cave
                 elif move == "south":
                     print("Going back into the prison house!\n")
                     current_location = prisonHouse
-                    print(descriptions[current_location])
                 elif move == "north":
                     print("you are now at an island!\n")
                     current_location = island 
-                    if current_location not in visited:
-                        visited.append(current_location)
-                        score+=5
-                    print(descriptions[current_location])
+                if current_location not in visited:
+                    visited.append(current_location)
+                    score+=5
+                print(descriptions[current_location])
             elif current_location == island:
                 if move in ["north", "east"]:
                     print("you are still on the middle of the sea!\n")
                 elif move == "south":
                     print("you are going back into the lake bank!\n")
                     current_location = lakeBank
-                    print(descriptions[current_location])
                 elif move == "west":
                     print("you are now in the mystical city\n")
                     current_location = city
-                    if current_location not in visited:
-                        visited.append(current_location)
-                        score+=5
-                    print(city)
+                if current_location not in visited:
+                    visited.append(current_location)
+                    score+=5
+                print(descriptions[current_location])
             elif current_location == city:
                 if move in ["north","south"]:
                     print("You are wandering around the city\n")
                 elif move in ["east"]:
                     print("You are going back to the island")
                     current_location = island
-                    print(current_location)
+                    print(discriptions[current_location])
                 elif move == "west":
-                    score+=5
                     current_location = museum
-                    print(descriptions[current_location])
-                    break
+                if current_location not in visited:
+                    visited.append(current_location)
+                    score+=5
+                print(descriptions[current_location])
+                
+            if current_location == museum:
+                break
 
         elif move == 'help':
             print(ask_help)
+            
         elif move == 'quit':
             print("Game exited.")
             print("Score: ",score)
