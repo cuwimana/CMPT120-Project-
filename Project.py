@@ -65,6 +65,18 @@ def locations():
               "I may inspire and you can learn from me. I am a museum full of Greek arts. Are you starting to be nervous and wonder "
               "how museum can speak? I told you this is a magic place. Continue to enjoy, you will explore more."
               "Here, you can learn about ways of getting back to your family.")
+    
+    tunnel = ("                     SMALL TUNNEL\n" 
+            "You are moving under a small tunnel surrounded by big rocks. It really dark and quiet."
+              "You can only hear the sound of your feet and the beat of your heart. It is scary and"
+              "you do not know where you will end up. You can either go back or continue your journey.")
+    
+    cave= ( "                          CAVE\n"
+        "The path halted and a cave appeared. Ivy wound round the cave and conceal the entrance that is a jagged opening."
+           "Inside is dim although being lit by two small fires in the corner of the cave. In the Centre is a small roasting"
+           "pot and in the far north corner there is a small woven mat made with dried grass. Cave is dank and the only sound"
+           "you can hear is the dripping water and wind from lake in east of cave. In west there is a small tunnel,"
+           "which may lead you to exciting places.")
     return forest, prisonHouse, lakeBank, island, city, museum
     
 def conclude(score, name):
