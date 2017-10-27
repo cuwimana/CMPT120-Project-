@@ -5,8 +5,11 @@
 # October 27 2017
 
 import time 
+def getUserInput():
+    name = input("Enter your name please to continue: ")
+    return name
 
-def intro(): # showing introduction of the game, title and backstory and return name
+def intro(name): # showing introduction of the game, title and backstory and return name
 
     title = (        "\n              Magic Place\n"
                  "      ===========================\n")
@@ -18,14 +21,12 @@ def intro(): # showing introduction of the game, title and backstory and return 
       "But you can't unless you get to a meseum on the other side of the sea. "
       "Your job is to get to that museum before five minutes......." )
     print(title+"\n")
-    name = input("Enter your name please to continue: ")
-    print('\n')
+    print('\n') 
     print("Welcome to Magic Place game "+name+"!!! \n")
     print('\n')
     print(backStory+"\n")
     input("Press Enter to continue")
     print('\n')
-    return name
 
 def locations(): # holding list discriptions and lacation valiables signed to indexes, return locations and descriptions
     descriptions = [
@@ -87,11 +88,18 @@ def conclude(score, name): # show copyright and show scores
     print('Good JOb '+name+', you have finished the game')
     print("Your Total score is:" , score,"\n")
     print(copyRight)
-
-def main():
+#def moveTo(current_location):
     
+    # set the current location
+    # check if visited
+    #    if not, add to score, and add to visited
+    # print current location
+    #return score, current_location
+def main():
     descriptions, forest, prisonHouse, lakeBank, island, city, museum, tunnel, cave = locations() # retuned from locations fuction
-    # map and help 
+    # map and help
+    name = getUserInput() # retuned from intro function
+    intro(name)
     ask_help = "You can only move north, east, south or west from your current location. Enter the directions to move towards." 
     map = (" \n Museum --------- City ----------Island  \n" 
            " \n    |                               |    \n"
@@ -100,7 +108,7 @@ def main():
            " \n                  |                 |    \n"
            " \n                  |                 |    \n"
            " \n               Forest---------Prison House \n" )
-    name = intro() # retuned from intro function
+ 
     current_location = forest # starting location
     visited = [current_location] # tracking locations that have been visited 
     print(descriptions[current_location])
@@ -129,7 +137,7 @@ def main():
                 if current_location not in visited: # check whether current location has been visited or not
                     visited.append(current_location) # add in visited list
                     score+=5 # add 5 on the score 
-                print(descriptions[current_location]) 
+                print(descriptions[current_location]) # move this code into the moveTo function, and remove from here and below
             elif current_location == cave: # track movement in the cave
                 if move == "north":
                     print("you are still in the cave!\n")
