@@ -81,7 +81,7 @@ def locations(): # holding list discriptions and lacation valiables signed to in
     tunnel = 6
     cave = 7
     return descriptions, forest, prisonHouse, lakeBank, island, city, museum, tunnel, cave  
-def conclude(score, name): # show copyright and show scores 
+def conclude(score, name): # show copyright and show scores
     end = "\nOoops! All museum doors are locked themselves. Good bye real world, I am stuck in the Museum!"
     copyRight =  "Copyright(c), @Charlotte Uwimana, charlotte.uwimana1@notes.marist.edu"
     print(end+"\n")
@@ -95,11 +95,9 @@ def conclude(score, name): # show copyright and show scores
     #    if not, add to score, and add to visited
     # print current location
     #return score, current_location
-def main():
-    descriptions, forest, prisonHouse, lakeBank, island, city, museum, tunnel, cave = locations() # retuned from locations fuction
+def gameLoop(name): # return score 
+    descriptions, forest, prisonHouse, lakeBank, island, city, museum, tunnel, cave = locations()
     # map and help
-    name = getUserInput() # retuned from intro function
-    intro(name)
     ask_help = "You can only move north, east, south or west from your current location. Enter the directions to move towards." 
     map = (" \n Museum --------- City ----------Island  \n" 
            " \n    |                               |    \n"
@@ -122,6 +120,7 @@ def main():
             print("Your score is:", score, "\n")
             return 
         print("\n")
+        #move to getUserInput 
         move = input("Enter a direction: ").strip().lower() # hundle case insensitive
         print("\n")
         if move in ["north", "east", "south", "west"]: # direction for moving 
@@ -222,7 +221,7 @@ def main():
                     visited.append(current_location)
                     score+=5
                 print(descriptions[current_location])
-                
+  
             if current_location == museum: # ending location 
                 break
 
@@ -237,8 +236,12 @@ def main():
             print("Score: ",score)
             return
         else:
-            print("Invalid input .\n") 
-        
+            print("Invalid input .\n")
+    return score
+def main():
+    name = getUserInput()
+    intro(name)  
+    score = gameLoop(name)
     conclude(score, name)
     
 main()
