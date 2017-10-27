@@ -6,7 +6,9 @@
 # Author: Charlotte Uwimana
 # September 15 2017
 
-def intro():
+import time 
+
+def intro(): # showing introduction of the game, title and backstory and return name
 
     title = (        "\n              Magic Place\n"
                  "      ===========================\n")
@@ -27,7 +29,7 @@ def intro():
     print('\n')
     return name
 
-def locations():
+def locations(): # holding list discriptions and lacation valiables signed to indexes, return locations and descriptions
     descriptions = [
                 ("                FOREST\n"
                    "You are walking in tannin-brown forest. The grass is crispy under your feet. The trees are "
@@ -80,7 +82,7 @@ def locations():
     tunnel = 6
     cave = 7
     return descriptions, forest, prisonHouse, lakeBank, island, city, museum, tunnel, cave  
-def conclude(score, name):
+def conclude(score, name): # show copyright and show scores 
    
     end = "\nOoops! All museum doors are locked themselves. Good bye real world, I am stuck in the Museum!"
     copyRight =  "Copyright(c), @Charlotte Uwimana, charlotte.uwimana1@notes.marist.edu"
@@ -90,26 +92,35 @@ def conclude(score, name):
     print(copyRight)
 
 def main():
-    descriptions, forest, prisonHouse, lakeBank, island, city, museum, tunnel, cave= locations()
-    ask_help = "You can only move north, east, south or west from your current location. Enter the directions to move towards."
-    map = (" \n Museum --------- City ----------Island  \n"
+   
+    descriptions, forest, prisonHouse, lakeBank, island, city, museum, tunnel, cave = locations() # retuned from locations fuction
+    # map and help variables 
+    ask_help = "You can only move north, east, south or west from your current location. Enter the directions to move towards." 
+    map = (" \n Museum --------- City ----------Island  \n" 
            " \n    |                               |    \n"
            " \n    |                               |    \n"
            " \n Tunnel ------- Cave----------Lake Bank  \n"
            " \n                  |                 |    \n"
            " \n                  |                 |    \n"
            " \n               Forest---------Prison House \n" )
-    name = intro()
-    current_location = forest
-    visited = [current_location]
+    name = intro() # retuned from intro function
+    current_location = forest # starting location
+    visited = [current_location] # tracking locations that have been visited 
     print(descriptions[current_location])
     score = 0
-    while True:
+    start_time = time.time()
+    stop_time = time.time() # variable for tracking start time for the game    
+    while True: # loop for the game 
+        stop_time = time.time() # variable for tracking end time 
+        if (stop_time - start_time) >= 300: # test if time is less than or equal five minute, then stop
+            print( " You ran out of time!\n")
+            print("Your score is:", score, "\n")
+            return 
         print("\n")
-        move = input("Enter a direction: ").strip().lower()
+        move = input("Enter a direction: ").strip().lower() # hundle case insensitive
         print("\n")
-        if move in ["north", "east", "south", "west"]:
-            if current_location == forest:
+        if move in ["north", "east", "south", "west"]: # direction for moving 
+            if current_location == forest:  # tract movement in the forest 
                 if move in ["south", "west"]:
                     print("You are still in the forest.")
                 elif move == "east":
@@ -122,7 +133,7 @@ def main():
                     visited.append(current_location)
                     score+=5
                 print(descriptions[current_location])
-            elif current_location == cave:
+            elif current_location == cave: # track movement in the cave
                 if move == "north":
                     print("you are still in the cave!\n")
                 if move == "south":
@@ -138,7 +149,7 @@ def main():
                     visited.append(current_location)
                     score+=5
                 print(descriptions[current_location]) 
-            elif current_location == tunnel:
+            elif current_location == tunnel: # track movement in the tunnel
                 if move in ["south", "west"]:
                     print(" you bump into the tunnel wall")
                 elif move == "east":
@@ -159,12 +170,12 @@ def main():
                 if move == "north":
                     print("you have arrive at a shore of a sea!\n")
                     current_location = lakeBank
-                if current_location not in visited:
+                if current_location not in visited: 
                     visited.append(current_location)
                     score+=5
                 print(descriptions[current_location])
                     
-            elif current_location == lakeBank:
+            elif current_location == lakeBank: # truck movement at lake bank
                 if move == "east":
                     print("you are still on the lake bank!\n")
                 elif move == "west":
@@ -180,7 +191,7 @@ def main():
                     visited.append(current_location)
                     score+=5
                 print(descriptions[current_location])
-            elif current_location == island:
+            elif current_location == island:# truck movement in island 
                 if move in ["north", "east"]:
                     print("you are still on the middle of the sea!\n")
                 elif move == "south":
@@ -193,13 +204,13 @@ def main():
                     visited.append(current_location)
                     score+=5
                 print(descriptions[current_location])
-            elif current_location == city:
+            elif current_location == city: # truck movement in the city 
                 if move in ["north","south"]:
                     print("You are wandering around the city\n")
                 elif move in ["east"]:
                     print("You are going back to the island")
                     current_location = island
-                    print(discriptions[current_location])
+                    print(descriptions[current_location])
                 elif move == "west":
                     current_location = museum
                 if current_location not in visited:
@@ -207,7 +218,7 @@ def main():
                     score+=5
                 print(descriptions[current_location])
                 
-            if current_location == museum:
+            if current_location == museum: # ending location 
                 break
 
         elif move == "help":
@@ -215,14 +226,14 @@ def main():
         elif move == "map":
             print(map)
         elif move == "score":
-            print(name, "your current score is:", score, "\n" )
-        elif move == 'quit':
+            print(name, "Your current score is:", score, "\n" )
+        elif move == "quit":
             print("Game exited.")
             print("Score: ",score)
             return
         else:
-            print("Invalid input .\n")
-            
+            print("Invalid input .\n") 
+        
     conclude(score, name)
     
 main()
