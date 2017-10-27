@@ -92,6 +92,13 @@ def conclude(score, name):
 def main():
     descriptions, forest, prisonHouse, lakeBank, island, city, museum, tunnel, cave= locations()
     ask_help = "You can only move north, east, south or west from your current location. Enter the directions to move towards."
+    map = (" \n Museum --------- City ----------Island  \n"
+           " \n    |                               |    \n"
+           " \n    |                               |    \n"
+           " \n Tunnel ------- Cave----------Lake Bank  \n"
+           " \n                  |                 |    \n"
+           " \n                  |                 |    \n"
+           " \n               Forest---------Prison House \n" )
     name = intro()
     current_location = forest
     visited = [current_location]
@@ -205,6 +212,8 @@ def main():
 
         elif move == "help":
             print(ask_help)
+        elif move == "map":
+            print(map)
         elif move == "score":
             print(name, "your current score is:", score, "\n" )
         elif move == 'quit':
