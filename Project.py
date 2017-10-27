@@ -99,7 +99,6 @@ def main():
     score = 0
     while True:
         print("\n")
-        print(name, "your current score is:", score, "\n" )
         move = input("Enter a direction: ").strip().lower()
         print("\n")
         if move in ["north", "east", "south", "west"]:
@@ -150,7 +149,6 @@ def main():
                 if move == "west":
                     print("Going back into the forest!\n")
                     current_location = forest
-                    print (descriptions[current_location])
                 if move == "north":
                     print("you have arrive at a shore of a sea!\n")
                     current_location = lakeBank
@@ -205,9 +203,10 @@ def main():
             if current_location == museum:
                 break
 
-        elif move == 'help':
+        elif move == "help":
             print(ask_help)
-            
+        elif move == "score":
+            print(name, "your current score is:", score, "\n" )
         elif move == 'quit':
             print("Game exited.")
             print("Score: ",score)
