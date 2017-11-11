@@ -2,7 +2,7 @@
 #Projet 1
 # Author: Charlotte Uwimana
 # November 11 2017
-import time 
+import time
 def getUserInput(): # get user input and return name
     name = input("Enter your name please to continue: ")
     return name
@@ -78,6 +78,10 @@ def locations(): # holding list discriptions and lacation valiables signed to in
                  "You are now enjoying the beauty of the beach. The beach smells fresh, almost like a new ocean breeze air freshener."
                  "The sand is hot and looks like gold blended in with little white specks.")
                  ]
+    locName = [ "The forest", "The prison house", " The lake bank", " The island", "The city", " The meseum", " A tunnel", " the cave",
+                " The restaurant", " The beach"]
+    items = [ "map", "envilope", " boat and life Jacket", None, None, "rock", None, "mate", None, "blanket"]
+    # locations
     forest = 0
     prisonHouse = 1
     lakeBank = 2
@@ -88,7 +92,35 @@ def locations(): # holding list discriptions and lacation valiables signed to in
     cave = 7
     restaurant = 8
     beach = 9
-    return descriptions, forest, prisonHouse, lakeBank, island, city, museum, tunnel, cave, restaurant, beach    
+    nowhere = None 
+    #directions
+    directions = [ "north", "south", "west", "east"]
+    north = 0
+    south = 1
+    west = 2
+    east = 3
+    world = [
+            # North       south        west         east
+            [ cave,       None,        None ,       prisonHouse] # forest
+        ,   [ lakeBank,   None,        forest,      None  ]  # Prison House
+        ,   [ island,     prisonHouse, cave,        beach ]  # lake bank
+        ,   [ None,       lakeBank,    city,        None  ]  # Island
+        ,   [ restaurant, None,        museum,      island]  # city
+        ,   [ None,       None,        None,        None  ]  # Museum
+        ,   [ museum,     None,        None,        cave  ]  # tunnel
+        ,   [ None,       forest,      tunnel,    lakeBank]  # cave
+        ,   [ None,       city,        None,      None    ]  # restaurant
+        ,   [ None,       None,        lakeBank,  None    ]  # beach
+        ]
+    return descriptions,locName, items, forest, prisonHouse, lakeBank, island, city, museum, tunnel, cave, restaurant, beach, directions, world
+
+#def lookupLocation(current_location,world, north, south, west,east): # look up the new location 
+   #return world[current_location][move]
+
+#def getNextInteraction(directions):
+    #move = input("Enter a direction: ").strip().lower() # hundle case insensitive
+    #return directions.index(move)
+
 def conclude(score, name): # show copyright and show scores
     end = "\nOoops! All museum doors are locked themselves. Good bye real world, I am stuck in the Museum!"
     copyRight =  "Copyright(c), @Charlotte Uwimana, charlotte.uwimana1@notes.marist.edu"
@@ -104,7 +136,7 @@ def moveTo(current_location, score, visited, descriptions):
     return score # return score
 
 def gameLoop(name):
-    descriptions, forest, prisonHouse, lakeBank, island, city, museum, tunnel, cave, restraurant, beach = locations()
+    descriptions, locName, items, forest, prisonHouse, lakeBank, island, city, museum, tunnel, cave, restraurant, beach, directions, world= locations()
     # map and help
     ask_help = "You can only move north, east, south or west from your current location. Enter the directions to move towards." 
     map = ("\n              Restaurant                  \n"
@@ -132,6 +164,7 @@ def gameLoop(name):
             return 
         print("\n") 
         move = input("Enter a direction: ").strip().lower() # hundle case insensitive
+        #move = getNextInteraction(directions)
         print("\n")
         if move in ["north", "east", "south", "west"]: # direction for moving 
             if current_location == forest:  # track movement in the forest 
@@ -149,10 +182,10 @@ def gameLoop(name):
                     print("you are still in the cave!\n")
                 if move == "south":
                     print("return in the forest!\n")
-                    current_location = forest
+                    current_location = forest 
                 if move == "west":
                     print(" you are walking under the small tunnel")
-                    current_location = tunnel 
+                    current_location = tunnel
                 if move == "east":
                     print("You are walking to ward the lake bank!\n")
                     current_location = lakeBank
@@ -164,6 +197,7 @@ def gameLoop(name):
                     print(" You going back in the cave!\n")
                     current_location = cave
                 elif move == "north":
+                    print( " You entered in museum!\n")
                     current_location = museum
                 score = moveTo(current_location, score, visited, descriptions)
             elif current_location == prisonHouse:
@@ -174,7 +208,7 @@ def gameLoop(name):
                     current_location = forest
                 if move == "north":
                     print("you have arrive at a shore of a sea!\n")
-                    current_location = lakeBank
+                    current_location = lankBank
                 score = moveTo(current_location, score, visited, descriptions)
             elif current_location == lakeBank: # truck movement at lake bank
                 if move == "east":
@@ -205,18 +239,19 @@ def gameLoop(name):
                     current_location = lakeBank
                 elif move == "west":
                     print("you are now in the mystical city\n")
-                    current_location = city
+                    current_location = lookupLocation(current_location, move, wold)
                 score = moveTo(current_location, score, visited, descriptions)
             elif current_location == city: # truck movement in the city
                 if move == "south":
                     print(" There is restaurant in front of you")
-                    current_location = restaurant
+                    current_location = restraurant 
                 if move == "north":
                     print("You are wandering around the city\n")
                 elif move in ["east"]:
                     print("You are going back to the island\n")
                     current_location = island
                 elif move == "west":
+                    print(" You are walking to word meseum")
                     current_location = museum
                 score = moveTo(current_location, score, visited, descriptions)
             elif current_location == restaurant:
