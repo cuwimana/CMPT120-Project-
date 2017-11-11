@@ -40,9 +40,9 @@ def locations(): # holding list discriptions and lacation valiables signed to in
                   "have taken all your properties. No way to communicate with your family or to escape. There  "
                   "is a tunnel in the north corner of the prison house. This is your time to find a way to escape. ")
               , ("              LAKE BANK\n"
-                  "You arrive to a bank of a long lake. There is a small boat, swimming vest. There is an island  "
-                  "in the north of the lake. It is your time to decide how you can use these materials to enjoy  "
-                  "your exploration. You can either go to the island or stay and enjoy the nature of the lake and risk your life. ")
+                  "You arrive to a bank of a long lake. There are many places that you can enjoy around the lake."
+                 "But you need some items that can help you to do so. It is your time to decide how you can find those items and places "
+                 " to help you explore more. Or you can stay and enjoy the nature of the lake and risk your life. ")
               , ("                 ISLAND\n"
                   "You arrive at the most beautiful island you have ever visited. It is like a fairy-tale garden.Its beaches are "
                   "covered with soft golden sands. It has an ocean flowers and exotic trees. It has a museum of Greek arts and "
@@ -70,7 +70,14 @@ def locations(): # holding list discriptions and lacation valiables signed to in
                   "pot and in the far north corner there is a small woven mat made with dried grass. Cave is dank and the only sound "
                   "you can hear is the dripping water and wind from lake in east of cave. In west there is a small tunnel, "
                   "which may lead you to exciting places. ")
-                ]
+              , ("                          RESTAURANT\n"
+                 "It is now becoming darker. You are walking toward a fancy restaurant in the whole city. It is a beautiful place full "
+                 "of all kinds of food, wins and beers. Enjoy but be careful you. Things here are so expensive "
+                 "and this place is not safe especially in the night.")
+              , ("                          BEACH\n "
+                 "You are now enjoying the beauty of the beach. The beach smells fresh, almost like a new ocean breeze air freshener."
+                 "The sand is hot and looks like gold blended in with little white specks.")
+                 ]
     forest = 0
     prisonHouse = 1
     lakeBank = 2
@@ -79,7 +86,9 @@ def locations(): # holding list discriptions and lacation valiables signed to in
     museum = 5
     tunnel = 6
     cave = 7
-    return descriptions, forest, prisonHouse, lakeBank, island, city, museum, tunnel, cave  
+    restaurant = 8
+    beach = 9
+    return descriptions, forest, prisonHouse, lakeBank, island, city, museum, tunnel, cave, restaurant, beach    
 def conclude(score, name): # show copyright and show scores
     end = "\nOoops! All museum doors are locked themselves. Good bye real world, I am stuck in the Museum!"
     copyRight =  "Copyright(c), @Charlotte Uwimana, charlotte.uwimana1@notes.marist.edu"
@@ -95,13 +104,17 @@ def moveTo(current_location, score, visited, descriptions):
     return score # return score
 
 def gameLoop(name):
-    descriptions, forest, prisonHouse, lakeBank, island, city, museum, tunnel, cave = locations()
+    descriptions, forest, prisonHouse, lakeBank, island, city, museum, tunnel, cave, restraurant, beach = locations()
     # map and help
     ask_help = "You can only move north, east, south or west from your current location. Enter the directions to move towards." 
-    map = (" \n Museum --------- City ----------Island  \n" 
+    map = ("\n              Restaurant                  \n"
+           "\n                    |                     \n"
+           "\n                    |                     \n"
+           "\n                    |                     \n"
+           " \n Museum --------- City ----------Island  \n" 
            " \n    |                               |    \n"
            " \n    |                               |    \n"
-           " \n Tunnel ------- Cave----------Lake Bank  \n"
+           " \n Tunnel ------- Cave----------Lake Bank-------- Beach\n"
            " \n                  |                 |    \n"
            " \n                  |                 |    \n"
            " \n               Forest---------Prison House \n" )
@@ -165,7 +178,8 @@ def gameLoop(name):
                 score = moveTo(current_location, score, visited, descriptions)
             elif current_location == lakeBank: # truck movement at lake bank
                 if move == "east":
-                    print("you are still on the lake bank!\n")
+                    print("Arrive at the beach!\n")
+                    current_location = beach
                 elif move == "west":
                     print(" The is a beautiful curve in front of you!")
                     current_location = cave
@@ -174,7 +188,14 @@ def gameLoop(name):
                     current_location = prisonHouse
                 elif move == "north":
                     print("you are now at an island!\n")
-                    current_location = island 
+                    current_location = island
+                score = moveTo(current_location, score, visited, descriptions)
+            elif current_location == beach: # truck movement at the beach 
+                if move in [ "east", "north", "south"]:
+                    print( "you are still at the beach")
+                if move == "west":
+                    print ( " You walking back to lake bank")
+                    current_location = lakeBank
                 score = moveTo(current_location, score, visited, descriptions)
             elif current_location == island:# truck movement in island 
                 if move in ["north", "east"]:
@@ -186,15 +207,24 @@ def gameLoop(name):
                     print("you are now in the mystical city\n")
                     current_location = city
                 score = moveTo(current_location, score, visited, descriptions)
-            elif current_location == city: # truck movement in the city 
-                if move in ["north","south"]:
+            elif current_location == city: # truck movement in the city
+                if move == "south":
+                    print(" There is restaurant in front of you")
+                    current_location = restaurant
+                if move == "north":
                     print("You are wandering around the city\n")
                 elif move in ["east"]:
-                    print("You are going back to the island")
+                    print("You are going back to the island\n")
                     current_location = island
                 elif move == "west":
                     current_location = museum
                 score = moveTo(current_location, score, visited, descriptions)
+            elif current_location == restaurant:
+                if move in ["west", "east", "north"]:
+                    print("You are still in the restaurant\n")
+                if move == " south ":
+                    print("return back to the city\n")
+                    current_location = city
             if current_location == museum: # ending location 
                 break
 
