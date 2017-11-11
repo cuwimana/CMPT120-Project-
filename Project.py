@@ -1,9 +1,7 @@
 
-
 #Projet 1
 # Author: Charlotte Uwimana
-# October 27 2017
-
+# November 11 2017
 import time 
 def getUserInput(): # get user input and return name
     name = input("Enter your name please to continue: ")
@@ -13,13 +11,14 @@ def intro(name): # showing introduction of the game, title and backstory
 
     title = (        "\n              Magic Place\n"
                  "      ===========================\n")
-    backStory = ("You mysteriously found yourself in the middle of a forest."
-      "While on the forest walking along the beautiful nature,"
-      "you can receive far more that you seek or lose everything."
-      "You can discover fun, mysterious and adventurous things that you will never forget."
-      "You realize you are in a magic places you have never seen before and wanted to escape to the real world "
-      "But you can't unless you get to a meseum on the other side of the sea. "
-      "Your job is to get to that museum before five minutes......." )
+    backStory = ("You mysteriously found yourself in the middle of a forest. "
+                 "While on the forest walking along the beautiful nature, "
+                 "you can receive far more that you seek or lose everything. "
+                 "You can discover fun, mysterious and adventurous things that you will never forget."
+                 "You then realize that you are in a magic places you have"
+                 "never seen before and wanted to escape to the real world "
+                 "But you can't unless you get to a meseum on the other side of the sea. "
+                 "Your job is to get to that museum before five minutes......." )
     print(title+"\n")
     print('\n') 
     print("Welcome to Magic Place game "+name+"!!! \n")
@@ -57,8 +56,8 @@ def locations(): # holding list discriptions and lacation valiables signed to in
                   "and lots of other things to have fun. Remember, for you to escape the mystical world, you must get to the museum ")
               , ("                  MUSEUM\n"
                   "This is house of magic and museum for ancient Greek arts and crafts. You can hear a stranger voice telling: "
-                  "I am the most interesting person you have ever met, maybe. I am going to tell you my stories and my experiences. "
-                  "I may inspire and you can learn from me. I am a museum full of Greek arts. Are you starting to be nervous and wonder "
+                  "\"I am the most interesting person you have ever met, maybe. I am going to tell you my stories and my experiences. "
+                  "I may inspire you and you can learn from me. I am a museum full of Greek arts.\" Are you starting to be nervous and wonder "
                   "how museum can speak? I told you this is a magic place. Continue to enjoy, you will explore more. "
                   "Here, you can learn about ways of getting back to your family. ")
               , ("                     SMALL TUNNEL\n" 
@@ -88,12 +87,14 @@ def conclude(score, name): # show copyright and show scores
     print('Good JOb '+name+', you have finished the game')
     print("Your Total score is:" , score,"\n")
     print(copyRight)
-#def moveTo(loc):
-    # set the current location
-    # check if visited
-    #    if not, add to score, and add to visited
-    # print current location
-def gameLoop(name): # return score 
+def moveTo(current_location, score, visited, descriptions):
+    if current_location not in visited: # check whether current location has been visited or not
+        visited.append(current_location) # add in visited list
+        score+=5 # add 5 on the score 
+    print(descriptions[current_location]) # print current location
+    return score # return score
+
+def gameLoop(name):
     descriptions, forest, prisonHouse, lakeBank, island, city, museum, tunnel, cave = locations()
     # map and help
     ask_help = "You can only move north, east, south or west from your current location. Enter the directions to move towards." 
@@ -106,8 +107,9 @@ def gameLoop(name): # return score
            " \n               Forest---------Prison House \n" )
  
     current_location = forest # starting location
-    visited = [current_location] # tracking locations that have been visited
+    visited = [current_location] # list of locations that have been visited
     score = 0
+    score = moveTo(current_location, score, visited, descriptions)
     start_time = time.time() # variable for tracking start time for the game   
     while True: # loop for the game
         stop_time = time.time() # variable for tracking end time 
@@ -115,14 +117,11 @@ def gameLoop(name): # return score
             print( " You ran out of time!\n")
             print("Your score is:", score, "\n")
             return 
-        print("\n")
-        print(descriptions[current_location]) 
-        #move to getUserInput
-        print("\n")
+        print("\n") 
         move = input("Enter a direction: ").strip().lower() # hundle case insensitive
         print("\n")
         if move in ["north", "east", "south", "west"]: # direction for moving 
-            if current_location == forest:  # tract movement in the forest 
+            if current_location == forest:  # track movement in the forest 
                 if move in ["south", "west"]:
                     print("You are still in the forest.")
                 elif move == "east":
@@ -131,9 +130,7 @@ def gameLoop(name): # return score
                 elif move == "north":
                     print("You are in the way lead you to the cave!\n")
                     current_location = cave
-                if current_location not in visited: # check whether current location has been visited or not
-                    visited.append(current_location) # add in visited list
-                    score+=5 # add 5 on the score 
+                score = moveTo(current_location, score, visited, descriptions)
             elif current_location == cave: # track movement in the cave
                 if move == "north":
                     print("you are still in the cave!\n")
@@ -146,9 +143,7 @@ def gameLoop(name): # return score
                 if move == "east":
                     print("You are walking to ward the lake bank!\n")
                     current_location = lakeBank
-                if current_location not in visited:
-                    visited.append(current_location)
-                    score+=5
+                score = moveTo(current_location, score, visited, descriptions)
             elif current_location == tunnel: # track movement in the tunnel
                 if move in ["south", "west"]:
                     print(" you bump into the tunnel wall")
@@ -157,9 +152,7 @@ def gameLoop(name): # return score
                     current_location = cave
                 elif move == "north":
                     current_location = museum
-                if current_location not in visited:
-                    visited.append(current_location)
-                    score+=5 
+                score = moveTo(current_location, score, visited, descriptions)
             elif current_location == prisonHouse:
                 if move in ["east", "south"]:
                     print("You bump into the prison wall.\n")
@@ -169,9 +162,7 @@ def gameLoop(name): # return score
                 if move == "north":
                     print("you have arrive at a shore of a sea!\n")
                     current_location = lakeBank
-                if current_location not in visited: 
-                    visited.append(current_location)
-                    score+=5  
+                score = moveTo(current_location, score, visited, descriptions)
             elif current_location == lakeBank: # truck movement at lake bank
                 if move == "east":
                     print("you are still on the lake bank!\n")
@@ -184,9 +175,7 @@ def gameLoop(name): # return score
                 elif move == "north":
                     print("you are now at an island!\n")
                     current_location = island 
-                if current_location not in visited:
-                    visited.append(current_location)
-                    score+=5
+                score = moveTo(current_location, score, visited, descriptions)
             elif current_location == island:# truck movement in island 
                 if move in ["north", "east"]:
                     print("you are still on the middle of the sea!\n")
@@ -196,9 +185,7 @@ def gameLoop(name): # return score
                 elif move == "west":
                     print("you are now in the mystical city\n")
                     current_location = city
-                if current_location not in visited:
-                    visited.append(current_location)
-                    score+=5
+                score = moveTo(current_location, score, visited, descriptions)
             elif current_location == city: # truck movement in the city 
                 if move in ["north","south"]:
                     print("You are wandering around the city\n")
@@ -207,9 +194,7 @@ def gameLoop(name): # return score
                     current_location = island
                 elif move == "west":
                     current_location = museum
-                if current_location not in visited:
-                    visited.append(current_location)
-                    score+=5
+                score = moveTo(current_location, score, visited, descriptions)
             if current_location == museum: # ending location 
                 break
 
@@ -225,14 +210,11 @@ def gameLoop(name): # return score
             return
         else:
             print("Invalid input .\n")
-    return score
-
+    conclude(score,name)
 def main():
     name = getUserInput()
-    intro(name)  
-    score = gameLoop(name)
-    conclude(score, name)
-    
+    intro(name)
+    gameLoop(name)
 main()
 
 
