@@ -81,6 +81,7 @@ def locations(): # holding list discriptions and lacation valiables signed to in
     locName = [ "The forest", "The prison house", " The lake bank", " The island", "The city", " The meseum", " A tunnel", " the cave",
                 " The restaurant", " The beach"]
     items = [ "map", "envilope", " boat and life Jacket", None, None, "rock", None, "mate", None, "blanket"]
+    
     # locations
     forest = 0
     prisonHouse = 1
@@ -92,13 +93,14 @@ def locations(): # holding list discriptions and lacation valiables signed to in
     cave = 7
     restaurant = 8
     beach = 9
-    nowhere = None 
+    
     #directions
     directions = [ "north", "south", "west", "east"]
     north = 0
     south = 1
     west = 2
     east = 3
+    
     world = [
             # North       south        west         east
             [ cave,       None,        None ,       prisonHouse] # forest
@@ -117,9 +119,13 @@ def locations(): # holding list discriptions and lacation valiables signed to in
 #def lookupLocation(current_location,world, north, south, west,east): # look up the new location 
    #return world[current_location][move]
 
-#def getNextInteraction(directions):
-    #move = input("Enter a direction: ").strip().lower() # hundle case insensitive
-    #return directions.index(move)
+#def getNextInteraction(directions,move):
+    #move = input("Enter a direction: ").strip().lower()# hundle case insensitive
+    #return directions.index(move), move
+#def showDescriptions(descriptions, current_location):
+    #print(descripription[current_location])
+#def showLocName(locName,current_location):
+    #print(locName[current_location])
 
 def conclude(score, name): # show copyright and show scores
     end = "\nOoops! All museum doors are locked themselves. Good bye real world, I am stuck in the Museum!"
@@ -128,18 +134,19 @@ def conclude(score, name): # show copyright and show scores
     print('Good JOb '+name+', you have finished the game')
     print("Your Total score is:" , score,"\n")
     print(copyRight)
-def moveTo(current_location, score, visited, descriptions):
+    
+def moveTo(current_location, score, visited, locName):
     if current_location not in visited: # check whether current location has been visited or not
         visited.append(current_location) # add in visited list
         score+=5 # add 5 on the score 
-    print(descriptions[current_location]) # print current location
+    print(locName[current_location]) # print current location
     return score # return score
 
 def gameLoop(name):
     descriptions, locName, items, forest, prisonHouse, lakeBank, island, city, museum, tunnel, cave, restraurant, beach, directions, world= locations()
     # map and help
     ask_help = "You can only move north, east, south or west from your current location. Enter the directions to move towards." 
-    map = ("\n              Restaurant                  \n"
+    world_map = ("\n         Restaurant                  \n"
            "\n                    |                     \n"
            "\n                    |                     \n"
            "\n                    |                     \n"
@@ -153,8 +160,10 @@ def gameLoop(name):
  
     current_location = forest # starting location
     visited = [current_location] # list of locations that have been visited
+    inventory = [] # inventory for picked items
+    searched = [current_location]
     score = 0
-    score = moveTo(current_location, score, visited, descriptions)
+    score = moveTo(current_location, score, visited, locName)
     start_time = time.time() # variable for tracking start time for the game   
     while True: # loop for the game
         stop_time = time.time() # variable for tracking end time 
@@ -163,10 +172,11 @@ def gameLoop(name):
             print("Your score is:", score, "\n")
             return 
         print("\n") 
-        move = input("Enter a direction: ").strip().lower() # hundle case insensitive
-        #move = getNextInteraction(directions)
-        print("\n")
-        if move in ["north", "east", "south", "west"]: # direction for moving 
+        move = input("Enter a command: ").strip().lower() # hundle case insensitive
+        #move = getNextInteraction(directions, move)
+        #print("\n")
+        
+        if move in ["north", "east", "south", "west"]: # direction for moving
             if current_location == forest:  # track movement in the forest 
                 if move in ["south", "west"]:
                     print("You are still in the forest.")
@@ -176,7 +186,8 @@ def gameLoop(name):
                 elif move == "north":
                     print("You are in the way lead you to the cave!\n")
                     current_location = cave
-                score = moveTo(current_location, score, visited, descriptions)
+                score = moveTo(current_location, score, visited, locName)
+                
             elif current_location == cave: # track movement in the cave
                 if move == "north":
                     print("you are still in the cave!\n")
@@ -189,7 +200,8 @@ def gameLoop(name):
                 if move == "east":
                     print("You are walking to ward the lake bank!\n")
                     current_location = lakeBank
-                score = moveTo(current_location, score, visited, descriptions)
+                score = moveTo(current_location, score, visited, locName)
+                
             elif current_location == tunnel: # track movement in the tunnel
                 if move in ["south", "west"]:
                     print(" you bump into the tunnel wall")
@@ -199,7 +211,7 @@ def gameLoop(name):
                 elif move == "north":
                     print( " You entered in museum!\n")
                     current_location = museum
-                score = moveTo(current_location, score, visited, descriptions)
+                score = moveTo(current_location, score, visited, locName)
             elif current_location == prisonHouse:
                 if move in ["east", "south"]:
                     print("You bump into the prison wall.\n")
@@ -208,8 +220,9 @@ def gameLoop(name):
                     current_location = forest
                 if move == "north":
                     print("you have arrive at a shore of a sea!\n")
-                    current_location = lankBank
-                score = moveTo(current_location, score, visited, descriptions)
+                    current_location = lakeBank
+                score = moveTo(current_location, score, visited, locName)
+                
             elif current_location == lakeBank: # truck movement at lake bank
                 if move == "east":
                     print("Arrive at the beach!\n")
@@ -223,14 +236,16 @@ def gameLoop(name):
                 elif move == "north":
                     print("you are now at an island!\n")
                     current_location = island
-                score = moveTo(current_location, score, visited, descriptions)
+                score = moveTo(current_location, score, visited,locName)
+                
             elif current_location == beach: # truck movement at the beach 
                 if move in [ "east", "north", "south"]:
                     print( "you are still at the beach")
                 if move == "west":
                     print ( " You walking back to lake bank")
                     current_location = lakeBank
-                score = moveTo(current_location, score, visited, descriptions)
+                score = moveTo(current_location, score, visited, locName)
+                
             elif current_location == island:# truck movement in island 
                 if move in ["north", "east"]:
                     print("you are still on the middle of the sea!\n")
@@ -240,7 +255,8 @@ def gameLoop(name):
                 elif move == "west":
                     print("you are now in the mystical city\n")
                     current_location = lookupLocation(current_location, move, wold)
-                score = moveTo(current_location, score, visited, descriptions)
+                score = moveTo(current_location, score, visited, locName)
+                
             elif current_location == city: # truck movement in the city
                 if move == "south":
                     print(" There is restaurant in front of you")
@@ -253,8 +269,9 @@ def gameLoop(name):
                 elif move == "west":
                     print(" You are walking to word meseum")
                     current_location = museum
-                score = moveTo(current_location, score, visited, descriptions)
-            elif current_location == restaurant:
+                score = moveTo(current_location, score, visited, locName)
+                
+            elif current_location == restaurant: # track restaurant
                 if move in ["west", "east", "north"]:
                     print("You are still in the restaurant\n")
                 if move == " south ":
@@ -262,17 +279,40 @@ def gameLoop(name):
                     current_location = city
             if current_location == museum: # ending location 
                 break
-
+            
+        elif move == "look": # look around to display the descriptions 
+            print(descriptions[current_location])
+        elif move == "search": # search items
+            item = items[current_location]
+            if item == None:
+                print("sorry, there is no item in this place!\n")
+            else:
+                print( "Congratulation! You discovered: ",item) # reveal item 
+                searched.append(current_location) # add item location in searched
+        elif move == "take":
+            if current_location in searched:
+                if item not in inventory:
+                    inventory.append(item)
+                    items.remove(item)
+                print("You have added the item to your inventory.\n")
+            else:
+                print("You have not searched this place!\n ")
+            
         elif move == "help":
             print(ask_help)
         elif move == "map":
-            print(map)
+            if "map" in inventory:
+                print(world_map)
+            else:
+                print(" Sorry, you do not have map in your inventory.") 
         elif move == "score":
             print(name, "Your current score is:", score, "\n" )
         elif move == "quit":
             print("Game exited.")
             print("Score: ",score)
             return
+        elif move == "inventory":
+            print(inventory)
         else:
             print("Invalid input .\n")
     conclude(score,name)
