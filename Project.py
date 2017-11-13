@@ -22,8 +22,8 @@ def intro(name):
                  "You can discover fun, mysterious and adventurous things that you will never forget."
                  "You then realize that you are in a magic places you have"
                  "never seen before and wanted to escape to the real world "
-                 "But you can't unless you get to a meseum on the other side of the sea. "
-                 "Your job is to get to that museum before five minutes......." )
+                 "But you can't unless you get to a meseum on the other side of the sea... "
+                 "Your job is to get to the museum with one specific item before five minutes." )
     #printing out title and intro
     print(title+"\n")
     print('\n') 
@@ -151,7 +151,7 @@ def game_loop(name):
     items = [ "map", "key", " boat", None, None, "rock", None, "mate", None, "blanket"]
     locName = [ "The forest" , "The prison house", "The lake bank", "The island", "The city", "The museum", " A tunnel", " The cave",
                 " The restaurant", " The beach"]
-#    directions = [ "north", "south", "west", "east"]
+    directions = [ "north", "south", "west", "east"]
     ask_help = "You can only move north, east, south or west from your current location. Enter the directions to move towards."
     world_map = ("\n         Restaurant                  \n"
            "\n                    |                     \n"
@@ -178,7 +178,7 @@ def game_loop(name):
         stop_time = time.time() # variable for tracking end time 
         # check whether the player is running out of time
         if (stop_time - start_time) >= 300: 
-            print( " You ran out of time!\n")
+            print( "Sorry, you ran out of time! Try again later.\n")
             print("Your score is:", score, "\n")
             return 
         # get input --- case insensitive
