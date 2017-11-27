@@ -17,7 +17,7 @@ class Locale(object):
 	items = []
 	def __init__(self, name, desc, items=[]):
 		self.name = name
-		self.des = desc
+		self.desc = desc
 		self.items =items
 	# player drop an item to this place
 	def drop(self, item):
