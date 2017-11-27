@@ -151,7 +151,7 @@ def game_loop(name):
     items = [ "map", "key", " boat", None, None, "rock", None, "mate", None, "blanket"]
     locName = [ "The forest" , "The prison house", "The lake bank", "The island", "The city", "The museum", " A tunnel", " The cave",
                 " The restaurant", " The beach"]
-    directions = [ "north", "south", "west", "east"]
+    #directions = [ "north", "south", "west", "east"]
     ask_help = "You can only move north, east, south or west from your current location. Enter the directions to move towards."
     world_map = ("\n         Restaurant                  \n"
            "\n                    |                     \n"
