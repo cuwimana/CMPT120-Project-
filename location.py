@@ -19,6 +19,7 @@ class Locale(object):
 		self.name = name
 		self.desc = desc
 		self.items =items
+		self.desc_after = " You returned to " +name+ "."
 	# player drop an item to this place
 	def drop(self, item):
 		self.items.append(item)
