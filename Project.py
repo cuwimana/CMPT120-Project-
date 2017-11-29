@@ -83,6 +83,41 @@ def intro(name):
     print('\n')
     print(backStory+"\n")
     input("Press Enter to continue")
+    
+def definitions():
+    forest = 0
+    prisonHouse = 1
+    lakeBank = 2
+    island = 3
+    city = 4
+    museum = 5
+    tunnel = 6
+    cave = 7
+    restaurant = 8
+    beach = 9
+    
+    return forest, prisonHouse, lakeBank, island, city, museum, tunnel, cave, restaurant, beach
+    
+def matrix(current_loc, move):
+    # locations
+    forest, prisonHouse, lakeBank, island, city, museum, tunnel, cave, restaurant, beach = definitions()
+
+    world = [
+            # North       south        west         east
+            [ cave,       None,        None ,       prisonHouse] # forest
+        ,   [ lakeBank,   None,        forest,      None  ]  # Prison House
+        ,   [ island,     prisonHouse, cave,        beach ]  # lake bank
+        ,   [ None,       lakeBank,    city,        None  ]  # Island
+        ,   [ restaurant, None,        museum,      island]  # city
+        ,   [ None,       None,        None,        None  ]  # Museum
+        ,   [ museum,     None,        None,        cave  ]  # tunnel
+        ,   [ None,       forest,      tunnel,    lakeBank]  # cave
+        ,   [ None,       city,        None,      None    ]  # restaurant
+        ,   [ None,       None,        lakeBank,  None    ]  # beach
+        ]
+    
+    new_loc = world[current_loc][move]
+    return new_loc
 
 player1 = getUserInput()
 intro(player1.name)
