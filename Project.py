@@ -136,12 +136,15 @@ def matrix(current_loc, move):
     new_loc = world[current_loc][move]
     return new_loc
 
-def moveTo(current_location, score, visited, locName):
+def moveTo(current_location, score, visited, locName, descriptions):
+    print('\n')
+    #print(locName[current_location]) # print current location
     if current_location not in visited: # check whether current location has been visited or not
+        print(descriptions[current_location])
         visited.append(current_location) # add in visited list
         score+=5 # add 5 on the score 
-    print('\n')
-    print(locName[current_location]) # print current location
+    else:
+        print("You returned to", locName[current_location])
     return score # return score
 
 def game_loop(name):
@@ -149,7 +152,7 @@ def game_loop(name):
     forest, prisonHouse, lakeBank, island, city, museum, tunnel, cave, restaurant, beach = definitions()
     # items to collect base on location index
     items = [ "map", "key", " boat", None, None, "rock", None, "mate", None, "blanket"]
-    locName = [ "The forest" , "The prison house", "The lake bank", "The island", "The city", "The museum", " A tunnel", " The cave",
+    locName = [ "the forest" , "the prison house", "the lake bank", "the island", "the city", "the museum", " the tunnel", " the cave",
                 " The restaurant", " The beach"]
     #directions = [ "north", "south", "west", "east"]
     ask_help = "You can only move north, east, south or west from your current location. Enter the directions to move towards."
@@ -167,12 +170,12 @@ def game_loop(name):
     
     descriptions = locations()
     current_location = 0 # starting location
-    visited = [current_location] # list of locations that have been visited
+    visited = [] # list of locations that have been visited
     inventory = [] # inventory for picked items
     searched = [] # has been searched list
     score = 0
     #initializing location from moveTo function
-    score = moveTo(current_location, score, visited, locName)
+    score = moveTo(current_location, score, visited, locName, descriptions)
     start_time = time.time() #start recording time
     while True: # loop for the game
         stop_time = time.time() # variable for tracking end time 
@@ -199,12 +202,12 @@ def game_loop(name):
             if (matrix(current_location, move_num) != None):
                 current_location = matrix(current_location, move_num)
             #Museum is the last location
-            if locName[current_location] == "The museum":
+            if locName[current_location] == "the museum":
                 conclude(score, name, inventory)
                 break
             #updating score and print current location
             #update visited places
-            score = moveTo(current_location, score, visited, locName)
+            score = moveTo(current_location, score, visited, locName,descriptions)
         #look prints the full description of the current location
         elif move == "look": 
             print(descriptions[current_location])
@@ -221,7 +224,7 @@ def game_loop(name):
             if current_location in searched:
                 if item not in inventory:
                     inventory.append(item)
-                    items.remove(item)
+                    items[current_location] = None
                 print("You have added the item to your inventory.\n")
             else:
                 print("You have not searched this place!\n ")
@@ -256,8 +259,3 @@ def main():
     game_loop(name)
     
 main()
-
-
-    
-
-
