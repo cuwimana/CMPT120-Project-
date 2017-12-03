@@ -7,21 +7,21 @@ import location
 
 
 def locations():
-    locations_list = [ location.Locale( "the Forest", ("                          FOREST\n"
+    locations_list = [ location.Locale( "the forest", ("                          FOREST\n"
                   "You are walking in tannin-brown forest. The grass is crispy under your feet. The trees are "
                   "skyscraper tall. Hares are scampering away from you up ahead. The morning stars are shining "
                   "like sliver snowflakes. The peace of the morning is soul soothing. The forest’s smell is fresh "
                   "and organic. You can only feel joy in your heart flourishing like bubble in boiled water. "
                   "But be careful, this forest is not safe. There are strange creatures haunting you. You must get out now...\n") , ["map"]) 
-				,   location.Locale( "the Prison House", ("           PRISON HOUSE\n"
+				,   location.Locale( "the prison house", ("           PRISON HOUSE\n"
                   "You are stuck in prison house, in the middle of nowhere. You are caught by creatures, and they "
                   "have taken all your properties. No way to communicate with your family or to escape. There  "
                   "is a tunnel in the north corner of the prison house. This is your time to find a way to escape.\n "), ["Key"]) 
-				,location.Locale( "the Lake Bank",( "            LAKE BANK\n"
+				,   location.Locale( "the Lake Bank",( "            LAKE BANK\n"
                   "You arrive to a bank of a long lake. There are many places that you can enjoy around the lake."
                  "But you need some items that can help you to do so. It is your time to decide how you can find those items and places "
-                 " to help you explore more. Or you can stay and enjoy the nature of the lake and risk your life...\n "), ["Boat"]) 
-				,   location.Locale( "the Island",    ("                 ISLAND\n"
+                 " to help you explore more. Or you can stay and enjoy the nature of the lake and risk your life...\n "), ["Boat", "life jacket"]) 
+				,   location.Locale( "the island",    ("                 ISLAND\n"
                   "You arrive at the most beautiful island you have ever visited. It is like a fairy-tale garden.Its beaches are "
                   "covered with soft golden sands. It has an ocean flowers and exotic trees. It has a museum of Greek arts and "
                   "crafts. Add to this playful sun’s rays.You can get an unbelievable tint of piece and beauty. The sight is so "
@@ -38,7 +38,7 @@ def locations():
                   "I may inspire you and you can learn from me. I am a museum full of Greek arts.\" Are you starting to be nervous and wonder "
                   "how museum can speak? I told you this is a magic place. Continue to enjoy, you will explore more. "
                   "Here, you can learn about ways of getting back to your family...\n "), ["Rock"])
-				,   location.Locale("the small Tunnel", ("            SMALL TUNNEL\n" 
+				,   location.Locale("the small tunnel", ("            SMALL TUNNEL\n" 
                   "You are moving under a small tunnel surrounded by big rocks. It really dark and quiet. "
                   "You can only hear the sound of your feet and the beat of your heart. It is scary and "
                   "you do not know where you will end up. You can either go back or continue your journey...\n "), [None])
@@ -48,13 +48,23 @@ def locations():
                   "pot and in the far north corner there is a small woven mat made with dried grass. Cave is dank and the only sound "
                   "you can hear is the dripping water and wind from lake in east of cave. In west there is a small tunnel, "
                   "which may lead you to exciting places...\n "), [ "mate" ])
-				,   location.Locale(" the Restaurant",("                          RESTAURANT\n"
+				,   location.Locale(" the restaurant",("                          RESTAURANT\n"
                  "It is now becoming darker. You are walking toward a fancy restaurant in the whole city. It is a beautiful place full "
                  "of all kinds of food, wins and beers. Enjoy but be careful you. Things here are so expensive "
-                 "and this place is not safe especially in the night...\n"), [None]) 
+                 "and this place is not safe especially in the night...\n"), ["Food box"]) 
 				,   location.Locale( "the beach",("                          BEACH\n "
                  "You are now enjoying the beauty of the beach. The beach smells fresh, almost like a new ocean breeze air freshener."
-                 "The sand is hot and looks like gold blended in with little white specks...\n"),["Blanket"])
+                 "The sand is hot and looks like gold blended in with little white specks...\n"),["Blanket", "ticket"])
+                                ,   location.Locale("the amusement park", ("                 AMUSEMENT PARK \n"
+                 " You are arrived in amusement park. You can enjoy the roll cost, and beautiful nature, and people around you. "
+                 " However, make sure that you get insurance to do so.\n"), [" insurance"])
+                                ,   location.Locale(" the water fall", ("                      WATER FALL\n "   
+                 " the waterfall is quarium-blue, dizzling onto the rock. At its widest point, it is surging and plinging down "
+                 " the mountain. It has a beutiful serenity-pool at the botton. you thrown yourself under the waterfall and the" 
+                 " coldness of it start make you shuddering. Find the way to get there.\n"), [None])
+                                ,   location.Locale(" the bridge", ( "                        BRIDGE \n" 
+                 " You are walking over the bridge that leads you to the beautiful island\n"), [None])
+
 				]
     return locations_list
     
@@ -97,24 +107,30 @@ def definitions(): # index of each location
     cave = 7
     restaurant = 8
     beach = 9
-    return forest, prisonHouse, lakeBank, island, city, museum, tunnel, cave, restaurant, beach
+    amusementPark = 10
+    waterFall = 11
+    bridge = 12
+    return forest, prisonHouse, lakeBank, island, city, museum, tunnel, cave, restaurant, beach, amusementPark, waterFall, bridge
     
 def matrix(current_loc, move):
     # locations
-    forest, prisonHouse, lakeBank, island, city, museum, tunnel, cave, restaurant, beach = definitions()
+    forest, prisonHouse, lakeBank, island, city, museum, tunnel, cave, restaurant, beach, amusementPark, waterFall, bridge = definitions()
 
     world = [
-            # North       south        west         east
-            [ cave,       None,        None ,       prisonHouse] # forest
-        ,   [ lakeBank,   None,        forest,      None  ]  # Prison House
-        ,   [ island,     prisonHouse, cave,        beach ]  # lake bank
-        ,   [ None,       lakeBank,    city,        None  ]  # Island
-        ,   [ restaurant, None,        museum,      island]  # city
-        ,   [ None,       None,        None,        None  ]  # Museum
-        ,   [ museum,     None,        None,        cave  ]  # tunnel
-        ,   [ None,       forest,      tunnel,    lakeBank]  # cave
-        ,   [ None,       city,        None,      None    ]  # restaurant
-        ,   [ None,       None,        lakeBank,  None    ]  # beach
+            # North       south        west            east
+            [ cave,       None,        amusementPark , prisonHouse]  # forest
+        ,   [ lakeBank,   None,        forest,         None       ]  # Prison House
+        ,   [ island,     prisonHouse, cave,           beach      ]  # lake bank
+        ,   [ None,       lakeBank,    city,           bridge     ]  # Island
+        ,   [ restaurant, None,        museum,         island     ]  # city
+        ,   [ None,       None,        None,           None       ]  # Museum
+        ,   [ museum,     None,        None,           cave       ]  # tunnel
+        ,   [ None,       forest,      tunnel,         lakeBank   ]  # cave
+        ,   [ None,       city,        None,           None       ]  # restaurant
+        ,   [ bridge,     None,        lakeBank,       None       ]  # beach
+        ,   [ None,       waterFall,   None,           forest     ]  # amusement park
+        ,   [ amusementPark, None,     None,           None       ]  # waterFall 
+        ,   [ None,       beach,       island,         None       ]  # Bridge 
         ]
     
     new_loc = world[current_loc][move]
@@ -131,9 +147,9 @@ def game_loop(player1):
     player1.update_loc(current_location)
     
     while True:
-        if player1.move_count == 4:
-            print("You ran out of time")
-            return 
+        #if player1.move_count == 4:
+            #print("You ran out of time")
+            #return 
         move = input("Enter command: " ).lower().strip()
         
         if (move in ["north", "east", "south", "west"]):
@@ -155,12 +171,12 @@ def game_loop(player1):
                 else:
                     print()
                     print(current_location.desc)
-                    current_location.visited = True;
+                    current_location.visited = True
                     player1.add_score(5)
                     player1.move_counter()
                     player1.update_loc(current_location)
             else:
-                print("You are still on the same location!")
+                print("You are still in",current_location.name, "!")
         elif move == "quit":
             print("game exited")
             print("moves: ", player1.move_count)
