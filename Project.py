@@ -95,6 +95,18 @@ def intro(name):
     print('\n')
     print(backStory+"\n")
     input("Press Enter to continue")
+def conclude(player1): 
+    end = ("\nOoops! All museum doors are locked themselves. You are stuck in the Museum! "
+           "You can only use the key to escape the Museum to the real world")
+    copyRight =  "Copyright(c), @Charlotte Uwimana, charlotte.uwimana1@notes.marist.edu"
+    print(end+"\n")
+    if "key" in player1.inventory:
+        print("Good JOb "+player1.name+", you have won the game. You can now use your key to open through the secret door at the museum to the real world.")
+    else:
+        score = 0
+        print("Good JOb "+player1.name+", you tried your best to finish the game. Unfortunately, you're stuck in the museum since you did not collected the key.")
+    print("Your Total score is:" , score,"\n")
+    print(copyRight)
     
 def definitions(): # index of each location 
     forest = 0
@@ -111,7 +123,8 @@ def definitions(): # index of each location
     waterFall = 11
     bridge = 12
     return forest, prisonHouse, lakeBank, island, city, museum, tunnel, cave, restaurant, beach, amusementPark, waterFall, bridge
-    
+
+ 
 def matrix(current_loc, move):
     # locations
     forest, prisonHouse, lakeBank, island, city, museum, tunnel, cave, restaurant, beach, amusementPark, waterFall, bridge = definitions()
@@ -136,6 +149,23 @@ def matrix(current_loc, move):
     new_loc = world[current_loc][move]
     return new_loc
 def game_loop(player1):
+    ask_help = "You can only move north, east, south or west from your current location. Enter the directions to move towards."
+    world_map = (
+           "\n               Restaurant                                       \n"
+           "\n                    |                                           \n"
+           "\n                    |                                           \n"
+           "\n                    |                                           \n"
+           " \n Museum --------- City ----------Island ----------Bridge       \n" 
+           " \n    |                               |               |          \n"
+           " \n    |                               |               |          \n"
+           " \n Tunnel ---------------Cave----------Lake Bank-----Beach       \n"
+           " \n                        |                 |                   \n"
+           " \n                        |                 |                   \n"
+           " \n Amusement park------Forest---------Prison House              \n"
+           " \n       |                                                      \n"
+           " \n       |                                                      \n"
+           " \n  Waterfall                                                   \n")
+    
     locations_list = locations()
     current_location_index = 0
     current_location = locations_list[current_location_index]
@@ -152,7 +182,7 @@ def game_loop(player1):
             #return 
         move = input("Enter command: " ).lower().strip()
         
-        if (move in ["north", "east", "south", "west"]):
+        if move in ["north", "east", "south", "west"]:
             if (move == "north"):
                 move_num = 0
             elif(move == "south"):
@@ -165,7 +195,11 @@ def game_loop(player1):
                 current_location_index = matrix(current_location_index, move_num)
                 current_location = locations_list[current_location_index]
                 
-                if current_location.visited:
+                #Museum is the last location
+                if current_location.name == "the museum":
+                    conclude(player1)
+                    break
+                elif current_location.visited:
                     print()
                     print(current_location.desc_after)
                 else:
@@ -177,13 +211,44 @@ def game_loop(player1):
                     player1.update_loc(current_location)
             else:
                 print("You are still in",current_location.name, "!")
+
+                
+        elif move == "look": 
+            print(current_location.desc)
+        #search for an item to collect
+        elif move == "search" or move == "examine": # search items
+            item = current_location.items
+            if item == [None]:
+                print("sorry, there is no item in this place!\n")
+            else:
+                print( "Congratulation! You discovered: ",item) # reveal item 
+                current_location.searched = True # add item location in searched
+            
+        
+        # your collections
+        elif move == "inventory":
+            print(player1.inventory)
+
+        # Oh you need help with movement directions?
+        elif move == "help":
+            print(ask_help)
+        # if you haven't collected the map, you can't see it
+        elif move == "map":
+            if "map" in player1.inventory:
+                print(world_map)
+            else:
+                print(" Sorry, you do not have map in your inventory.") 
+        # alright see you score
+        elif move == "score":
+            print(name, "Your current score is:", score, "\n" )
+        # wait... 
         elif move == "quit":
-            print("game exited")
-            print("moves: ", player1.move_count)
-            print("score: ", player1.score)
-            break
+            print("Game exited.")
+            print("Score: ",score)
+            return
         else:
-            print("Invalid")
+            print("Invalid input .\n")
+
 
 def main():
     player1 = getUserInput()
