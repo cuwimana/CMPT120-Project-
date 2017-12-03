@@ -25,4 +25,4 @@ class Locale(object):
 		self.items.append(item)
 	# player take an item from this place
 	def take(self, item):
-		self.inventory.remove(item)
+		self.items.remove(item)
