@@ -1,6 +1,7 @@
 # Project5    
 # Author: Charlotte Uwimana
 # December 1, 2017
+import time 
 import player 
 import location
 #import time
@@ -63,7 +64,7 @@ def locations():
                  " the mountain. It has a beutiful serenity-pool at the botton. you thrown yourself under the waterfall and the" 
                  " coldness of it start make you shuddering. Find the way to get there.\n"), [])
                                 ,   location.Locale(" the bridge", ( "                        BRIDGE \n" 
-                 " You are walking over the bridge that leads you to the beautiful island\n"), [])
+                 " You are standing near the bridge that leads you to the beautiful island. But you can not pass except if you have a ticket.\n"), [])
 
 				]
     return locations_list
@@ -149,7 +150,9 @@ def matrix(current_loc, move):
     new_loc = world[current_loc][move]
     return new_loc
 def game_loop(player1):
-    ask_help = "You can only move north, east, south or west from your current location. Enter the directions to move towards."
+    ask_help = ("You can only move north, east, south or west from your current location." 
+                " Other valid commands are: search or examine, look, take, use, and drop."
+                "Enter the command to move towards.\n")
     world_map = (
            "\n               Restaurant                                       \n"
            "\n                    |                                           \n"
@@ -175,11 +178,14 @@ def game_loop(player1):
     player1.add_score(0)
     player1.move_counter()
     player1.update_loc(current_location)
-    
+    start_time = time.time() # start recording time 
     while True:
-        #if player1.move_count == 4:
-            #print("You ran out of time")
-            #return 
+        stop_time = time.time() # variable to track end time
+        if (stop_time - start_time) >=300:
+            print(" Sorry, you rane out of time! Try again later. \n")
+            print(" Your score is: ", player1.score, "\n")
+            return
+        # get input --- case insensitive 
         move = input("Enter command: " ).lower().strip()
         
         if move in ["north", "east", "south", "west"]:
@@ -194,7 +200,6 @@ def game_loop(player1):
             if (matrix(current_location_index, move_num) != None):
                 current_location_index = matrix(current_location_index, move_num)
                 current_location = locations_list[current_location_index]
-                
                 #Museum is the last location
                 if current_location.name == "the museum":
                     conclude(player1)
@@ -211,41 +216,39 @@ def game_loop(player1):
                     player1.update_loc(current_location)
             else:
                 print("You are still in",current_location.name, "!")
-
-                
+        
         elif move == "look": 
             print(current_location.desc)
         #search for an item to collect
         elif move == "search" or move == "examine": # search items
             item_list = current_location.items
             if item_list != []:
-                print( "Congratulation! You discovered: ",item_list) # reveal item 
+                print( "Congratulation! You discovered: ",item_list, "\n") # reveal item 
                 current_location.searched = True # add item location in searched
             else:
-                print("sorry, there is no item in this place!\n")
+                print(" No items or items have taken in this place!\n")
     
         # take the items when the current location has been searched 
         elif move == "take":
             if current_location.searched == True: # current location must be searched
                 item = input(" Which item do you want to take?:  " ).lower().strip() # user enter item name
                 if item in item_list:
-                    if item not in player1.inventory: # check if item is in the current location item list
-                        player1.take(item) # take the item and add it to player inventory
-                        current_location.take(item)
-                        print("You have added", item, "to your inventory!")
+                    player1.take(item) # take the item and add it to player inventory
+                    current_location.take(item)
+                    print("You have added", item, "to your inventory!\n")
                 else:
-                    print(" There is no such item in this location!")
+                    print(" There is no such item in this location!\n")
             else:
-                print(" You have not searched yet this place!")
+                print(" You have not searched yet this place!\n")
+        # drop item when it is in your inventory 
         elif move == "drop":
             item = input(" Which items do you want to drop?: ").lower().strip()
-            if item in player1.inventory:
-                player1.drop(item)
-                current_location.drop(item)
-                print(" You have removed", item ,  "from your inventory") 
+            if item in player1.inventory: # check if it is in inventory
+                player1.drop(item)        # remove it from inventory
+                current_location.drop(item) # drop it to the current location
+                print(" You have removed", item ,  "from your inventory.\n") 
             else:
-                print(" ERROR: You do not have that item in your inventory")
-                
+                print(" ERROR: You do not have that item in your inventory.\n")   
                          
         # your collections
         elif move == "inventory":
