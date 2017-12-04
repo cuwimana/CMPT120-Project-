@@ -64,7 +64,7 @@ def locations():
                  " the mountain. It has a beutiful serenity-pool at the botton. you thrown yourself under the waterfall and the" 
                  " coldness of it start make you shuddering. Find the way to get there.\n"), [])
                                 ,   location.Locale(" the bridge", ( "                        BRIDGE \n" 
-                 " You are standing near the bridge that leads you to the beautiful island. But you can not pass except if you have a ticket.\n"), [])
+                 " You are standing near the bridge that can lead you to the beautiful island in the west.\n"), [])
 
 				]
     return locations_list
@@ -149,6 +149,25 @@ def matrix(current_loc, move):
     
     new_loc = world[current_loc][move]
     return new_loc
+
+# 
+def moveTo(player1,current_location):
+    #Museum is the last location
+    if current_location.name == "the museum":
+        conclude(player1)
+        return current_location
+    elif current_location.visited:
+        print()
+        print(current_location.desc_after)
+    else:
+        print()
+        print(current_location.desc)
+        current_location.visited = True
+        player1.add_score(5)
+        player1.move_counter()
+        player1.update_loc(current_location)
+    return player1.current_loc
+    
 def game_loop(player1):
     ask_help = ("You can only move north, east, south or west from your current location." 
                 " Other valid commands are: search or examine, look, take, use, and drop."
@@ -200,20 +219,9 @@ def game_loop(player1):
             if (matrix(current_location_index, move_num) != None):
                 current_location_index = matrix(current_location_index, move_num)
                 current_location = locations_list[current_location_index]
-                #Museum is the last location
-                if current_location.name == "the museum":
-                    conclude(player1)
+                update_playerLoc = moveTo(player1,current_location)
+                if update_playerLoc.name == "the museum":
                     break
-                elif current_location.visited:
-                    print()
-                    print(current_location.desc_after)
-                else:
-                    print()
-                    print(current_location.desc)
-                    current_location.visited = True
-                    player1.add_score(5)
-                    player1.move_counter()
-                    player1.update_loc(current_location)
             else:
                 print("You are still in",current_location.name, "!")
         
@@ -226,7 +234,7 @@ def game_loop(player1):
                 print( "Congratulation! You discovered: ",item_list, "\n") # reveal item 
                 current_location.searched = True # add item location in searched
             else:
-                print(" No items or items have taken in this place!\n")
+                print(" No items or items have been taken in this place!\n")
     
         # take the items when the current location has been searched 
         elif move == "take":
