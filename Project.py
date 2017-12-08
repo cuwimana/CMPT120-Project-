@@ -103,6 +103,7 @@ def conclude(player1):
     print("Good JOb "+player1.name+", you have won the game. You arrived the final destination")
     print("Your Total score is:" , player1.score,"\n")
     print(copyRight)
+    return copyRight
     
 def definitions(): # index of each location 
     forest = 0
@@ -158,7 +159,17 @@ def moveTo(player1,current_location):
         player1.move_counter()
         player1.update_loc(current_location)
     return player1.current_loc
-    
+def initializeGame(player1): # unitial for game 
+    locations_list = locations()
+    current_location_index = 0
+    current_location = locations_list[current_location_index]
+    print()
+    print(current_location.desc)
+    current_location.visited = True
+    player1.add_score(0)
+    player1.move_counter()
+    player1.update_loc(current_location) 
+    return locations_list, current_location_index, current_location, current_location.visited 
 def game_loop(player1):
     ask_help = ("You can only move north, east, south or west from your current location." 
                 " Other valid commands are: search or examine, look, take, use, and drop."
@@ -179,15 +190,7 @@ def game_loop(player1):
            " \n       |                                                      \n"
            " \n  Waterfall                                                   \n")
     
-    locations_list = locations()
-    current_location_index = 0
-    current_location = locations_list[current_location_index]
-    print()
-    print(current_location.desc)
-    current_location.visited = True
-    player1.add_score(0)
-    player1.move_counter()
-    player1.update_loc(current_location)
+    locations_list,current_location_index, current_location, current_location.visited = initializeGame( player1)
     start_time = time.time() # start recording time 
     while True:
         stop_time = time.time() # variable to track end time
@@ -212,26 +215,35 @@ def game_loop(player1):
                 if(current_location.name == "the lake bank" and 
                    matrix(current_location_index, move_num) == 3 and 
                    "boat" and "life jacket" not in player1.inventory):
-                    print("You need both a boat and life jacket to cross from the lake bank to the island")
+                    print(" RESTRICTED: You need both a boat and life jacket to cross from the lake bank to the island")
                     continue
                 # make sure that to cross the bridge a person has ticket 
                 if(current_location.name == " the bridge" and 
                    matrix(current_location_index, move_num) == 3 and 
                    "ticket" not in player1.inventory):
-                    print("You need to get ticket to cross the bridge and go to island.\n")
+                    print(" RESTRICTED: You must get ticket to cross the bridge and go to island.\n")
                     continue
                 # make sure that to go to the waterFall the player has insurance and life jacket
                 if(current_location.name == "the amusement park" and 
                    matrix(current_location_index, move_num) == 11 and 
                    "insurance" not in player1.inventory):
-                    print("You must have insurance, if you want to go to waterfall.\n")
+                    print("RESTRICTED: You must have insurance, if you want to go to waterfall.\n")
                     continue
                 # the final distination, museum. No key, no enter 
                 if(matrix(current_location_index, move_num) == 5 and 
                    "key" not in player1.inventory):
-                    print("You don't have the key to get inside the museum -->Please return back and search for the key")
-                    continue
-                
+                    print("You arrived to Museum, the final destination, without key to get inside. You failed the game!\n")
+                    reply = input("Play again? yes/no: ").lower().strip()
+                    if reply == "yes":
+                        player1 = getUserInput()
+                        intro(player1.name)
+                        game_loop(player1)
+                        continue
+                    else:
+                        print(" Thank you for trying. See you soon!!1\n")
+                        print("Your current score: ", player1.score)
+                        print("Copyright(c), @Charlotte Uwimana, charlotte.uwimana1@notes.marist.edu")
+                        break
                 current_location_index = matrix(current_location_index, move_num)
                 current_location = locations_list[current_location_index]
                 update_playerLoc = moveTo(player1,current_location)
