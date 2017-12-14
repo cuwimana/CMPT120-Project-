@@ -9,35 +9,35 @@ import location
 def locations():
     locations_list = [ location.Locale( "the forest", ("                          FOREST\n"
                   "You are walking in tannin-brown forest. The grass is crispy under your feet. The trees are "
-                  "skyscraper tall. Hares are scampering away from you up ahead. The morning stars are shining "
-                  "like sliver snowflakes. The peace of the morning is soul soothing. The forest’s smell is fresh "
-                  "and organic. You can only feel joy in your heart flourishing like bubble in boiled water. "
-                  "But be careful, this forest is not safe. There are strange creatures haunting you. You must get out now...\n") , ["map"]) 
+                  "skyscraper tall. The morning stars are shining like sliver snowflakes."
+                  "You are just full of joy. But be careful, this forest is not safe."
+                  "There are strange creatures haunting you. You must get out now...\n") , ["map", "knife"]) 
 				,   location.Locale( "the prison house", ("           PRISON HOUSE\n"
-                  "You are stuck in prison house, in the middle of nowhere. You are caught by creatures, and they "
-                  "have taken all your properties. No way to communicate with your family or to escape. There  "
-                  "is a tunnel in the north corner of the prison house. This is your time to find a way to escape.\n "), ["key"]) 
+                  "You are stuck in prison cell, in the middle of nowhere. You are caught by creatures, and they "
+                  "have taken all your properties. No way to communicate with your family or to escape."
+                  " There is a door in north and a small box in the west corner and there is a phone box in west."
+                  " You must do everything quietly in order to escape.\n "), ["key"]) 
 				,   location.Locale( "the lake bank",( "            LAKE BANK\n"
                   "You arrive to a bank of a long lake. There are many places that you can enjoy around the lake."
-                 "But you need some items that can help you to do so. It is your time to decide how you can find those items and places "
+                  "But you need some items that can help you to do so. It is your time to decide how you can find those items and places "
                  " to help you explore more. Or you can stay and enjoy the nature of the lake and risk your life...\n "), ["boat", "life jacket"]) 
 				,   location.Locale( "the island",    ("                 ISLAND\n"
                   "You arrive at the most beautiful island you have ever visited. It is like a fairy-tale garden.Its beaches are "
                   "covered with soft golden sands. It has an ocean flowers and exotic trees. It has a museum of Greek arts and "
-                  "crafts. Add to this playful sun’s rays.You can get an unbelievable tint of piece and beauty. The sight is so "
+                  "crafts. Add to this playful sun’s rays. You can get an unbelievable tint of piece and beauty. The sight is so "
                   "marvelous and relaxing that even the worst thoughts and the most gloomy mood disappear in no time. It is time "
                   "to either move to the Museum or enjoy the beauty of beach. Just so you know, it will get lonely...\n"), []) 
 				,   location.Locale(" the city", ("                   CITY\n"
-                  "You arrive at a city where the museam is located. The city is right at the beach You can "
+                  "You arrive at a city where the museum is located. The city is right at the beach You can "
                   "hear the sea roaring. You can feel the wind blowing your face. "
                   "The city is so perfect and calm. It is time to get more relaxing, a building a sandcastle, "
-                  "and lots of other things to have fun. Remember, for you to escape the mystical world, you must get to the museum...\n "), []) 
+                  "and lots of other things to have fun. But do not be distructed."
+                  "Remember, your goals is to get to the final distination...\n "), []) 
 				,   location.Locale("the museum",   ("                  MUSEUM\n"
-                  "This is house of magic and museum for ancient Greek arts and crafts. You can hear a stranger voice telling: "
+                  "This is house of magic and museum for ancient Greek arts and crafts. There is a stranger voice telling: "
                   "\"I am the most interesting person you have ever met, maybe. I am going to tell you my stories and my experiences. "
                   "I may inspire you and you can learn from me. I am a museum full of Greek arts.\" Are you starting to be nervous and wonder "
-                  "how museum can speak? I told you this is a magic place. Continue to enjoy, you will explore more. "
-                  "Here, you can learn about ways of getting back to your family...\n "), [])
+                  "how museum can speak? I told you this is a magic place, you were looking for.\n "), [])
 				,   location.Locale("the small tunnel", ("            SMALL TUNNEL\n" 
                   "You are moving under a small tunnel surrounded by big rocks. It really dark and quiet. "
                   "You can only hear the sound of your feet and the beat of your heart. It is scary and "
@@ -47,23 +47,24 @@ def locations():
                   "Inside is dim although being lit by two small fires in the corner of the cave. In the Centre is a small roasting "
                   "pot and in the far north corner there is a small woven mat made with dried grass. Cave is dank and the only sound "
                   "you can hear is the dripping water and wind from lake in east of cave. In west there is a small tunnel, "
-
                   "which may lead you to exciting places...\n "), [ "mate", "wax box" ])
 				,   location.Locale(" the restaurant",("                          RESTAURANT\n"
-                 "It is now becoming darker. You are walking toward a fancy restaurant in the whole city. It is a beautiful place full "
-                 "of all kinds of food, wins and beers. Enjoy but be careful you. Things here are so expensive "
-                 "and this place is not safe especially in the night...\n"), ["food box"]) 
+                 "It is now becoming darker. The journal has been long. This is time to take a short break and get something to fresh you"
+                 " This is a fancy restraurant in the whole city.  It is a beautiful place full of all kinds of food, wins and beers"
+                 " Unfortunately, this place is not safe. In few minutes, it is going to be attacked by thief."
+                 " You must get out or get killed.\n"), ["food box"]) 
 				,   location.Locale( "the beach",("                          BEACH\n "
                  "You are now enjoying the beauty of the beach. The beach smells fresh, almost like a new ocean breeze air freshener."
-                 "The sand is hot and looks like gold blended in with little white specks...\n"),["blanket", "ticket"])
+                 "The sand is hot and looks like gold blended in with little white specks. This beach has some dangerous animals that"
+                "will kill you if you stay. You can fight with them or find your way to escape...\n"),["blanket", "ticket"])
                                 ,   location.Locale("the amusement park", ("                 AMUSEMENT PARK \n"
                  " You are arrived in amusement park. You can enjoy the roll cost, and beautiful nature, and people around you. "
                  " However, make sure that you get insurance to do so.\n"), ["insurance"])
                                 ,   location.Locale(" the water fall", ("                      WATERFALL\n "   
-                 " It is quarium-blue, dizzling onto the rock. At its widest point, it is surging and plinging down "
-                 " the mountain. It has a beutiful serenity-pool at the botton. Now, you can enjoy swimming or go back.\n"), [])
+                 " This waterfall is quarium-blue, dizzling onto the rock. At its widest point, it is surging and plinging down "
+                 " the mountain. It has a beutiful serenity-pool at the botton. Now, you can enjoy swimming or go back to other place.\n"), [])
                                 ,   location.Locale(" the bridge", ( "                        BRIDGE \n" 
-                 " You are standing near the bridge that can lead you to the beautiful island in the west.\n"), [])
+                 " You are now walking across the bridge that will lead you to the beautiful island. Safe journal , hope to see to the final destination.\n"), [])
 
 				]
     return locations_list
@@ -169,11 +170,12 @@ def initializeGame(player1): # unitial for game
     player1.add_score(0)
     player1.move_counter()
     player1.update_loc(current_location) 
-    return locations_list, current_location_index, current_location, current_location.visited 
+    return locations_list, current_location_index, current_location, current_location.visited, player1.move_counter 
 def game_loop(player1):
     ask_help = ("You can only move north, east, south or west from your current location." 
-                " Other valid commands are: search or examine, look, take, use, and drop."
-                "Enter the command to move towards.\n")
+                " Other valid commands are: search or examine for finding items, look for looking around the location,"
+                "take for additing item on your inventory , use for using items, and drop fo removing item you do now want,"
+                "call, unlock, pray, converse for talking to someone. Enter the command to move towards.\n")
     world_map = (
            "\n               Restaurant                                       \n"
            "\n                    |                                           \n"
@@ -190,7 +192,7 @@ def game_loop(player1):
            " \n       |                                                      \n"
            " \n  Waterfall                                                   \n")
     
-    locations_list,current_location_index, current_location, current_location.visited = initializeGame( player1)
+    locations_list,current_location_index, current_location, current_location.visited, player1.move_counter = initializeGame( player1)
     start_time = time.time() # start recording time 
     while True:
         stop_time = time.time() # variable to track end time
@@ -233,7 +235,7 @@ def game_loop(player1):
                 # the final distination, museum. No key, no enter 
                 if(matrix(current_location_index, move_num) == 5 and 
                    "key" not in player1.inventory):
-                    print("You arrived to Museum, the final destination, without key to get inside. You failed the game!\n")
+                    print("You arrived to Museum, the final destination, without key to get inside. You did not accomplish the goals!\n")
                     reply = input("Play again? yes/no: ").lower().strip()
                     if reply == "yes":
                         player1 = getUserInput()
@@ -241,7 +243,8 @@ def game_loop(player1):
                         game_loop(player1)
                         continue
                     else:
-                        print(" Thank you for trying. See you soon!!1\n")
+                        print("Thank you for trying. See you soon!!1\n")
+                        print("Number of moves: ", player1.move_count) 
                         print("Your current score: ", player1.score)
                         print("Copyright(c), @Charlotte Uwimana, charlotte.uwimana1@notes.marist.edu")
                         break
@@ -314,6 +317,31 @@ def game_loop(player1):
         # your collections
         elif move == "inventory":
             print(inventory)
+        elif move == "unlock": # using unlock command to open door where there is door. 
+            if current_location.name == "the prison house":
+                print("It is really hard to open the door")
+            elif current_location.name == " the museum" and "key" in inventory: 
+                print(" The door are open. Now you can enter")
+            else:
+                print("There is nothing to unlock")
+        elif move == "call": # making call, you must be in only prison house. 
+            if current_location.name == "the prison house":
+                number = input("Enter the phone number: ")
+                print(len(number))
+                if 10 <= len(number)<= 15:
+                    print("Hello, I am sorry! Now, I am at work and I am not able to repond your call. I will call you later. \n.")
+                elif len(number) == 3:
+                    print("This is a police office. We are trying to track your location but it seems like it does not exist on earth.\n")
+                else:
+                    print("The number or code, you dial, is incorrect please check the number or code and call again.")  
+            else:
+                print("There is no phone box in this place.")
+        
+        elif move == "converse": # if player feel lonely can converse with becca 
+            print(" Hello,", player1.name,"!\n"
+                  "I am Becca and I am also exploring this magic place. It is a really long journey full of challenges."
+                  "But I promise you are not alone. Never give up, you are almost there. \n")
+    
         else:
             print("Invalid input .\n")
 
