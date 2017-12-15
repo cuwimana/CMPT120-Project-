@@ -36,7 +36,7 @@ def locations():
                   "This is house of magic and museum for ancient Greek arts and crafts. There is a stranger voice telling: "
                   "\"I am the most interesting person you have ever met, maybe. I am going to tell you my stories and my experiences. "
                   "I may inspire you and you can learn from me. I am a museum full of Greek arts.\" Are you starting to be nervous and wonder "
-                  "how museum can speak? I told you this is a magic place, you were looking for.\n "), [])
+                  "how museum can speak? I told you this is a magic place, you were looking for but you are still outside.\n "), [])
 				,   location.Locale("the small tunnel", ("            SMALL TUNNEL\n" 
                   "You are moving under a small tunnel surrounded by big rocks. It really dark and quiet. "
                   "You can only hear the sound of your feet and the beat of your heart. It is scary and "
@@ -97,10 +97,10 @@ def intro(name):
     print(task+"\n")
     input("Press Enter to continue")
 def conclude(player1): 
-    end = ("\n This is where you have been dreaming to arrive. Great job," +player1.name+ "!" )
+    end = ("\n Now you are inside the museum. This is where you have been dreaming to be and working hard to get there!" )
     copyRight =  "Copyright(c), @Charlotte Uwimana, charlotte.uwimana1@notes.marist.edu"
     print(end+"\n")
-    print("Good JOb "+player1.name+", you have won the game. You arrived the final destination")
+    print("Good JOb "+player1.name+", you have won the game. You arrived the final destination!\n")
     print("Your Total score is:" , player1.score,"\n")
     print(copyRight)
     return copyRight
@@ -174,13 +174,13 @@ def game_loop(player1):
     used_items = []
     opened_items = []
     god_help = ("All Might God, help me in this journey so that I can finish it on time."
-           "I bielive that even where I am stack wihout knowing what to do, you are always there to hold my hand"
+           "I bielive that even where I am stack wihout knowing what to do, you are always there to hold my hand."
            " Do not let these obstacles block me. Do not let me give up. Amen")
 
     ask_help = ("You can only move north, east, south or west from your current location." 
                 " Other valid commands are: search or examine for finding items, look for looking around the location,"
-                "take for additing item on your inventory , use for using items, and drop fo removing item you do not want,"
-                "converse for talking to someone, other commands: call, unlock, pray. Enter the command to move towards.\n")
+                "take for additing item on your inventory , use for using items, and drop for removing item you do not want,"
+                "converse for talking to someone, other commands: call, pray, climb up, climb down, open. Enter the command to move towards.\n")
     world_map = (
            "\n               Restaurant                                       \n"
            "\n                    |                                           \n"
@@ -223,37 +223,36 @@ def game_loop(player1):
                 #The lake bank is secure --> you cannot go to the lake bank without lake 
                 if(current_location.name == "the lake bank" and 
                    matrix(current_location_index, move_num) == 3 and 
-                   "boat" and "life jacket" not in player1.inventory):
-                    print("RESTRICTED: You need both a boat and life jacket to cross from the lake bank to the island")
+                   "boat" and "life jacket" not in used_items):
+                    print("RESTRICTED: You need to use both a boat and life jacket to cross from the lake bank to the island")
                     continue
-                
                 
                 #make prison house a  secure location
                 #the prison house contains an envelop which access code and key
                 #the player needs the access code to escape the prison house
                 if current_location.name == "the prison house":
                     if "1234" in player1.inventory and "1234" not in used_items:
-                        print("You need to open the envelop and use the access code inside the envelope")
-                        print("hint: use the 'use' command after opening the envelope and use the access code");
+                        print("You need to open the envelop and then use the access code inside the envelope.")
+                        print("Hint: use the 'use' command after opening the envelope and use the access code\n");
                         continue
                     elif "1234" in player1.inventory and "1234" in used_items:
                         print("Continue to next location\n")
                     else:
-                        print("You need an access code to escape the prison house which can be found in an envelop in the house")
+                        print("You need an access code to escape the prison house.\n")
                         continue
                     
                 
                 # make sure that to cross the bridge a person has ticket 
                 if(current_location.name == "the beach" and
                    matrix(current_location_index, move_num) == 12 and 
-                   "ticket" not in player1.inventory):
-                    print(" RESTRICTED: You must get ticket to cross the bridge and go to island.\n")
+                   "ticket" not in used_items):
+                    print(" RESTRICTED: You must use a ticket to cross the bridge and go to island.\n")
                     continue
                 # make sure that to go to the waterFall the player has insurance and life jacket
                 if(current_location.name == "the amusement park" and 
                    matrix(current_location_index, move_num) == 11 and 
-                   "insurance" not in player1.inventory):
-                    print("RESTRICTED: You must have insurance, if you want to go to waterfall.\n")
+                   "insurance" not in used_items):
+                    print("RESTRICTED: You must use insurance, if you want to go to waterfall.\n")
                     continue
                 # the final distination, museum. No key, no enter 
                 if(matrix(current_location_index, move_num) == 5 and 
@@ -292,10 +291,10 @@ def game_loop(player1):
         elif move == "search" or move == "examine": # search items
             item_list = current_location.items
             if item_list != []:
-                print( "Congratulation! You discovered: ",item_list, "\n") # reveal item 
+                print("Congratulation! You discovered: ",item_list, "\n") # reveal item 
                 current_location.searched = True # add item location in searched
             else:
-                print(" No items or items have been taken in this place!\n")
+                print("No items or items have been taken in this place!\n")
     
         # take the items when the current location has been searched 
         elif move == "take":
@@ -309,18 +308,18 @@ def game_loop(player1):
                     current_location.take(item)
                     print("You have added", item, "to your inventory!\n")
                 else:
-                    print(" There is no such item in this location!\n")
+                    print("There is no such item in this location!\n")
             else:
-                print(" You have not searched yet this place!\n")
+                print("You have not searched yet this place!\n")
         # drop item when it is in your inventory 
         elif move == "drop":
-            item = input(" Which items do you want to drop?: ").lower().strip()
+            item = input("Which items do you want to drop?: ").lower().strip()
             if item in player1.inventory: # check if it is in inventory
                 player1.drop(item)        # remove it from inventory
                 current_location.drop(item) # drop it to the current location
-                print(" You have removed", item ,  "from your inventory.\n") 
+                print("You have removed", item ,  "from your inventory.\n") 
             else:
-                print(" ERROR: You do not have that item in your inventory.\n")   
+                print("ERROR: You do not have that item in your inventory.\n")   
                          
         # your collections
         elif move == "inventory":
@@ -333,9 +332,10 @@ def game_loop(player1):
         # if you haven't collected the map, you can't see it
         elif move == "map":
             if "map" in player1.inventory:
-                print(world_map)
+                print("You have map in your inventory but you must use it in order to display it.\n")
             else:
-                print(" Sorry, you do not have map in your inventory.") 
+                print("Sorry, you do not have map in your inventory.") 
+            
         # alright see you score
         elif move == "score":
             print(player1.name, "Your current score is:", player1.score, "\n" )
@@ -347,34 +347,16 @@ def game_loop(player1):
         # your collections
         elif move == "inventory":
             print(player1.inventory)
-        elif move == "unlock": # using unlock command to open door where there is door. 
-            if current_location.name == "the prison house":
-                code = input("Enter the code:  ")
-                if code == 1234:
-                    print("With hard effort, you unlocked the door. Now you are free to go.")
-                else:
-                    print("Invalid access code")
-            elif current_location.name == " the museum" and "envelope" in player1.inventory:
-                use = input("What do you want use: ")
-                if use == "key":
-                    print(" The door are open. Now you can enter")
-
-                else:
-                    "You can not enter."
-                    continue 
-            else:
-                print("There is nothing to unlock")
   
         elif move == "call": # making call, you must be in only prison house. 
             if current_location.name == "the prison house":
                 number = input("Enter the phone number: ")
-                print(len(number))
                 if 10 <= len(number)<= 15:
                     print("Hello, I am sorry! Now, I am at work and I am not able to repond your call. I will call you later. \n.")
                 elif len(number) == 3:
                     print("This is a police office. We are trying to track your location but it seems like it does not exist on earth.\n")
                 else:
-                    print("The number or code, you dial, is incorrect please check the number or code and call again.")  
+                    print("The number or code, you dial, is incorrect please check the number or code and call again.\n")  
             else:
                 print("There is no phone box in this place.")
         # if player feel lonely can converse with becca 
@@ -387,11 +369,15 @@ def game_loop(player1):
             itm = input("what item do you want to open: ").lower()
             if itm in player1.inventory and item == "envelope":
                 print("Congrats, you just opened ", itm)
-                print(itm, "contains key and access code 1234")
+                print(itm, "contains key and access code 1234.\n")
                 opened_items.append(itm)
             else:
-                print("Your item is not in your inventory or cannot be opened")
+                print("Your item is not in your inventory or cannot be opened.\n")
+                
+        # use the items when you have it in the inventory
         elif move == "use":
+            # prompt user to enter item he wants to use
+            # check if it is in inventory
             itm = input("what item do you want to use: ").lower()
             if itm in player1.inventory:
                 if (itm == "key" or itm == "1234") and "envelope" not in opened_items:
@@ -399,17 +385,21 @@ def game_loop(player1):
                     continue
                 # The key is only used at the museum
                 if itm == "key" and current_location.name != "the museum":
-                    print("You can only use key at the museum")
+                    print("You can only use key at the museum.\n")
                     continue
                 #when item is used successfully
-                print("Congrats, you just used ", itm)
+                print("You have used", itm ,".")
+                print("Access given!!\n" )
+                # using key on the museum only
                 if itm == "key" and current_location.name == "the museum":
                     conclude(player1)
                     return
+                if itm == "map":
+                    print(world_map)
                 used_items.append(itm)
             else:
                 print("Your item is not in your inventory")
-        # pray when you do not know what to do
+        #pray when you do not know what to do
         elif move == "pray":
           print("I know God will understand your prayer.\n")
           print(god_help, "\n")
@@ -423,7 +413,7 @@ def game_loop(player1):
                 else:
                     print("You are standing on the top of the branch of tree, six feet above the ground.\n")
             else:
-                print("Nothing to climb up.")
+                print("Nothing to climb up.\n")
         elif move == "climb down":
             if current_location == "the forest":
                 prompt = input("Form where?: ")
