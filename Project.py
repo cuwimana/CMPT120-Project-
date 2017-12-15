@@ -1,10 +1,9 @@
-# Project5    
+# Final Project   
 # Author: Charlotte Uwimana
-# December 1, 2017
+# December 15, 2017
 import time 
 import player 
 import location
-#import time
 
 def locations():
     locations_list = [ location.Locale( "the forest", ("                          FOREST\n"
@@ -15,8 +14,8 @@ def locations():
 				,   location.Locale( "the prison house", ("           PRISON HOUSE\n"
                   "You are stuck in prison cell, in the middle of nowhere. You are caught by creatures, and they "
                   "have taken all your properties. No way to communicate with your family or to escape."
-                  " There is a door in north and a small box in the west corner and there is a phone box in west."
-                  " You must do everything quietly in order to escape.\n "), ["key"]) 
+                  " There is a locked door in north and a envelope in the west corner and there is a phone box in west."
+                  " You must do everything quietly in order to escape.\n "), ["envelope"]) 
 				,   location.Locale( "the lake bank",( "            LAKE BANK\n"
                   "You arrive to a bank of a long lake. There are many places that you can enjoy around the lake."
                   "But you need some items that can help you to do so. It is your time to decide how you can find those items and places "
@@ -27,7 +26,7 @@ def locations():
                   "crafts. Add to this playful sun’s rays. You can get an unbelievable tint of piece and beauty. The sight is so "
                   "marvelous and relaxing that even the worst thoughts and the most gloomy mood disappear in no time. It is time "
                   "to either move to the Museum or enjoy the beauty of beach. Just so you know, it will get lonely...\n"), []) 
-				,   location.Locale(" the city", ("                   CITY\n"
+				,   location.Locale("the city", ("                   CITY\n"
                   "You arrive at a city where the museum is located. The city is right at the beach You can "
                   "hear the sea roaring. You can feel the wind blowing your face. "
                   "The city is so perfect and calm. It is time to get more relaxing, a building a sandcastle, "
@@ -42,13 +41,13 @@ def locations():
                   "You are moving under a small tunnel surrounded by big rocks. It really dark and quiet. "
                   "You can only hear the sound of your feet and the beat of your heart. It is scary and "
                   "you do not know where you will end up. You can either go back or continue your journey...\n "), [])
-				,   location.Locale(" the cave", ( "                          CAVE\n"
+				,   location.Locale("the cave", ( "                          CAVE\n"
                   "The path halted and a cave appeared. Ivy wound round the cave and conceal the entrance that is a jagged opening. "
                   "Inside is dim although being lit by two small fires in the corner of the cave. In the Centre is a small roasting "
                   "pot and in the far north corner there is a small woven mat made with dried grass. Cave is dank and the only sound "
                   "you can hear is the dripping water and wind from lake in east of cave. In west there is a small tunnel, "
                   "which may lead you to exciting places...\n "), [ "mate", "wax box" ])
-				,   location.Locale(" the restaurant",("                          RESTAURANT\n"
+				,   location.Locale("the restaurant",("                          RESTAURANT\n"
                  "It is now becoming darker. The journal has been long. This is time to take a short break and get something to fresh you"
                  " This is a fancy restraurant in the whole city.  It is a beautiful place full of all kinds of food, wins and beers"
                  " Unfortunately, this place is not safe. In few minutes, it is going to be attacked by thief."
@@ -60,10 +59,10 @@ def locations():
                                 ,   location.Locale("the amusement park", ("                 AMUSEMENT PARK \n"
                  " You are arrived in amusement park. You can enjoy the roll cost, and beautiful nature, and people around you. "
                  " However, make sure that you get insurance to do so.\n"), ["insurance"])
-                                ,   location.Locale(" the water fall", ("                      WATERFALL\n "   
+                                ,   location.Locale("the water fall", ("                      WATERFALL\n "   
                  " This waterfall is quarium-blue, dizzling onto the rock. At its widest point, it is surging and plinging down "
                  " the mountain. It has a beutiful serenity-pool at the botton. Now, you can enjoy swimming or go back to other place.\n"), [])
-                                ,   location.Locale(" the bridge", ( "                        BRIDGE \n" 
+                                ,   location.Locale("the bridge", ( "                        BRIDGE \n" 
                  " You are now walking across the bridge that will lead you to the beautiful island. Safe journal , hope to see to the final destination.\n"), [])
 
 				]
@@ -81,12 +80,12 @@ def intro(name):
     #game title and intro
     title = (        "\n              Magic Place\n"
                  "      ===========================\n")
-    backStory = ("All things in life are not granted. The choice you make every day are the ones that lead you to the future." 
-                 + name+ ", mysteriously found yourself in the middle of a forest. While in this forest, "
+    backStory = ("All things in life are not granted. The choice you make every day are the ones that lead you to the future. " 
+                 + name+ ", you mysteriously found yourself in the middle of a forest. While in this forest, "
                  "You then realize that you are in a magic places you have never seen before."
                  "You can discover fun, mysterious and adventurous things that you will never forget."
                  " And this is where your journey started....!")
-    task = ( name + ", your task in this game is to get to final distination, the museum and be able to enter. In you journey,"
+    task = ( name + ", your task in this game is to get to the final distination, the museum, and be able to enter. In you journey,"
              "you can collect all meterials that you think that will help you in down road and to enjoy some places. You have limited"
              "time to finish your task. Good luck!!!!!!!")
     #printing out title and intro
@@ -98,7 +97,7 @@ def intro(name):
     print(task+"\n")
     input("Press Enter to continue")
 def conclude(player1): 
-    end = ("\nOoops! All museum doors are locked. But do not worry, you have corrected the key. Now you can use it to get inside ")
+    end = ("\n This is where you have been dreaming to arrive. Great job," +player1.name+ "!" )
     copyRight =  "Copyright(c), @Charlotte Uwimana, charlotte.uwimana1@notes.marist.edu"
     print(end+"\n")
     print("Good JOb "+player1.name+", you have won the game. You arrived the final destination")
@@ -134,7 +133,7 @@ def matrix(current_loc, move):
         ,   [ island,     prisonHouse, cave,           beach      ]  # lake bank
         ,   [ None,       lakeBank,    city,           bridge     ]  # Island
         ,   [ restaurant, None,        museum,         island     ]  # city
-        ,   [ None,       tunnel,        None,         city       ]  # Museum
+        ,   [ None,       None,        None,           None       ]  # Museum
         ,   [ museum,     None,        None,           cave       ]  # tunnel
         ,   [ None,       forest,      tunnel,         lakeBank   ]  # cave
         ,   [ None,       city,        None,           None       ]  # restaurant
@@ -172,10 +171,16 @@ def initializeGame(player1): # unitial for game
     player1.update_loc(current_location) 
     return locations_list, current_location_index, current_location, current_location.visited, player1.move_counter 
 def game_loop(player1):
+    used_items = []
+    opened_items = []
+    god_help = ("All Might God, help me in this journey so that I can finish it on time."
+           "I bielive that even where I am stack wihout knowing what to do, you are always there to hold my hand"
+           " Do not let these obstacles block me. Do not let me give up. Amen")
+
     ask_help = ("You can only move north, east, south or west from your current location." 
                 " Other valid commands are: search or examine for finding items, look for looking around the location,"
-                "take for additing item on your inventory , use for using items, and drop fo removing item you do now want,"
-                "call, unlock, pray, converse for talking to someone. Enter the command to move towards.\n")
+                "take for additing item on your inventory , use for using items, and drop fo removing item you do not want,"
+                "converse for talking to someone, other commands: call, unlock, pray. Enter the command to move towards.\n")
     world_map = (
            "\n               Restaurant                                       \n"
            "\n                    |                                           \n"
@@ -215,14 +220,32 @@ def game_loop(player1):
 
             if (matrix(current_location_index, move_num) != None):
                 #make sure boat exist if going from lank bank to island
+                #The lake bank is secure --> you cannot go to the lake bank without lake 
                 if(current_location.name == "the lake bank" and 
                    matrix(current_location_index, move_num) == 3 and 
                    "boat" and "life jacket" not in player1.inventory):
-                    print(" RESTRICTED: You need both a boat and life jacket to cross from the lake bank to the island")
+                    print("RESTRICTED: You need both a boat and life jacket to cross from the lake bank to the island")
                     continue
+                
+                
+                #make prison house a  secure location
+                #the prison house contains an envelop which access code and key
+                #the player needs the access code to escape the prison house
+                if current_location.name == "the prison house":
+                    if "1234" in player1.inventory and "1234" not in used_items:
+                        print("You need to open the envelop and use the access code inside the envelope")
+                        print("hint: use the 'use' command after opening the envelope and use the access code");
+                        continue
+                    elif "1234" in player1.inventory and "1234" in used_items:
+                        print("Continue to next location\n")
+                    else:
+                        print("You need an access code to escape the prison house which can be found in an envelop in the house")
+                        continue
+                    
+                
                 # make sure that to cross the bridge a person has ticket 
-                if(current_location.name == " the bridge" and 
-                   matrix(current_location_index, move_num) == 3 and 
+                if(current_location.name == "the beach" and
+                   matrix(current_location_index, move_num) == 12 and 
                    "ticket" not in player1.inventory):
                     print(" RESTRICTED: You must get ticket to cross the bridge and go to island.\n")
                     continue
@@ -234,8 +257,9 @@ def game_loop(player1):
                     continue
                 # the final distination, museum. No key, no enter 
                 if(matrix(current_location_index, move_num) == 5 and 
-                   "key" not in player1.inventory):
-                    print("You arrived to Museum, the final destination, without key to get inside. You did not accomplish the goals!\n")
+                   "envelope" not in player1.inventory):
+                    print("The Museum are locked and there is evidently that you do not have key to enter."
+                          " To get inside was the goals, so you did not accomplish the goals!\n")
                     reply = input("Play again? yes/no: ").lower().strip()
                     if reply == "yes":
                         player1 = getUserInput()
@@ -253,9 +277,12 @@ def game_loop(player1):
                 update_playerLoc = moveTo(player1,current_location)
                 
                 if update_playerLoc.name == "the museum":
-                    if "key" in player1.inventory:
+                    if "envelope" in player1.inventory and "key" not in used_items:
+                        print("use the key inside the envelope to get in the museum")
+                        print("hint: you must open the envelope first")
+                    else:
                         conclude(player1)
-                        break
+                        return
             else:
                 print("You are still in",current_location.name, "!")
         
@@ -276,6 +303,9 @@ def game_loop(player1):
                 item = input(" Which item do you want to take?:  " ).lower().strip() # user enter item name
                 if item in item_list:
                     player1.take(item) # take the item and add it to player inventory
+                    if item == "envelope":
+                        player1.take("key")
+                        player1.take("1234")
                     current_location.take(item)
                     print("You have added", item, "to your inventory!\n")
                 else:
@@ -316,14 +346,25 @@ def game_loop(player1):
             return
         # your collections
         elif move == "inventory":
-            print(inventory)
+            print(player1.inventory)
         elif move == "unlock": # using unlock command to open door where there is door. 
             if current_location.name == "the prison house":
-                print("It is really hard to open the door")
-            elif current_location.name == " the museum" and "key" in inventory: 
-                print(" The door are open. Now you can enter")
+                code = input("Enter the code:  ")
+                if code == 1234:
+                    print("With hard effort, you unlocked the door. Now you are free to go.")
+                else:
+                    print("Invalid access code")
+            elif current_location.name == " the museum" and "envelope" in player1.inventory:
+                use = input("What do you want use: ")
+                if use == "key":
+                    print(" The door are open. Now you can enter")
+
+                else:
+                    "You can not enter."
+                    continue 
             else:
                 print("There is nothing to unlock")
+  
         elif move == "call": # making call, you must be in only prison house. 
             if current_location.name == "the prison house":
                 number = input("Enter the phone number: ")
@@ -336,12 +377,63 @@ def game_loop(player1):
                     print("The number or code, you dial, is incorrect please check the number or code and call again.")  
             else:
                 print("There is no phone box in this place.")
-        
-        elif move == "converse": # if player feel lonely can converse with becca 
-            print(" Hello,", player1.name,"!\n"
+        # if player feel lonely can converse with becca 
+        elif move == "converse": 
+            print("Hello,", player1.name,"!\n"
                   "I am Becca and I am also exploring this magic place. It is a really long journey full of challenges."
-                  "But I promise you are not alone. Never give up, you are almost there. \n")
-    
+                  " But I promise you are not alone. Never give up, you are almost there. \n")
+        
+        elif move == "open":
+            itm = input("what item do you want to open: ").lower()
+            if itm in player1.inventory and item == "envelope":
+                print("Congrats, you just opened ", itm)
+                print(itm, "contains key and access code 1234")
+                opened_items.append(itm)
+            else:
+                print("Your item is not in your inventory or cannot be opened")
+        elif move == "use":
+            itm = input("what item do you want to use: ").lower()
+            if itm in player1.inventory:
+                if (itm == "key" or itm == "1234") and "envelope" not in opened_items:
+                    print("You must open envelope first")
+                    continue
+                # The key is only used at the museum
+                if itm == "key" and current_location.name != "the museum":
+                    print("You can only use key at the museum")
+                    continue
+                #when item is used successfully
+                print("Congrats, you just used ", itm)
+                if itm == "key" and current_location.name == "the museum":
+                    conclude(player1)
+                    return
+                used_items.append(itm)
+            else:
+                print("Your item is not in your inventory")
+        # pray when you do not know what to do
+        elif move == "pray":
+          print("I know God will understand your prayer.\n")
+          print(god_help, "\n")
+          
+        # Climp up tree when you are in the forest 
+        elif move == "climb up":
+            if current_location.name == "the forest":
+                prompt = input("climp up what?:  ")
+                if prompt != "tree":
+                    print("I do not understand what you say. \n")
+                else:
+                    print("You are standing on the top of the branch of tree, six feet above the ground.\n")
+            else:
+                print("Nothing to climb up.")
+        elif move == "climb down":
+            if current_location == "the forest":
+                prompt = input("Form where?: ")
+                if prompt != "tree":
+                    print("You are already on the ground.\n")
+                else:
+                    print("You are now under the tree in the forest. You can continue your journey.\n")
+            else:
+                print("You are already on the ground\n.")
+                
         else:
             print("Invalid input .\n")
 
